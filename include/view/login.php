@@ -6,11 +6,11 @@
   <title>シングルページレイアウト</title>
   <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Raleway:700,400">
   <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="js/jquery-1.11.3.min.js"></script>
-  <script src="lib/placeholders.min.js"></script>
-  <script src="js/jquery.lightbox_me.js"></script>
+  <link rel="stylesheet" href="../include/view/css/normalize.css">
+  <link rel="stylesheet" href="../include/view/css/style.css">
+  <script src="../include/view/js/jquery-1.11.3.min.js"></script>
+  <script src="../include/view/lib/placeholders.min.js"></script>
+  <script src="../include/view/js/jquery.lightbox_me.js"></script>
   <script>
   $(function(){
     $('#login').click(function(e) {
@@ -51,7 +51,7 @@
     <h2 class="heading">USERS</h2>
     <div class="works-wrapper">
       <div class="work-box tree">
-        <img class="work-image" src="images/photo1.jpg" alt="制作事例1_">
+        <img class="work-image" src="../include/view/images/photo1.jpg" alt="制作事例1_">
         <div class="work-description">
           <div class="work-description-inner">
             <p class="work-text">
@@ -64,7 +64,7 @@
         </div>
       </div>
       <div class="work-box building">
-        <img class="work-image" src="images/photo2.jpg" alt="制作事例2">
+        <img class="work-image" src="../include/view/images/photo2.jpg" alt="制作事例2">
         <div class="work-description">
           <div class="work-description-inner">
             <p class="work-text">
@@ -77,7 +77,7 @@
         </div>
       </div>
       <div class="work-box lake">
-        <img class="work-image" src="images/photo3.jpg" alt="制作事例3">
+        <img class="work-image" src="../include/view/images/photo3.jpg" alt="制作事例3">
         <div class="work-description">
           <div class="work-description-inner">
             <p class="work-text">
@@ -90,7 +90,7 @@
         </div>
       </div>
       <div class="work-box sky">
-        <img class="work-image" src="images/photo4.jpg" alt="制作事例4">
+        <img class="work-image" src="../include/view/images/photo4.jpg" alt="制作事例4">
         <div class="work-description">
           <div class="work-description-inner">
             <p class="work-text">
@@ -153,7 +153,7 @@
   <!--<form id="loginForm" name="loginForm" action="<?php print($_SERVER['PHP_SELF']) ?>" method="POST">-->
   <?php echo $row['user_pass'];?>
   <div><?php echo $errorMessage ?></div>
-  <form id="loginForm" name="loginForm" action="http://localhost/photo_match/login.php" method="POST">
+  <form id="loginForm" name="loginForm" action="./login.php" method="POST">
     <div class="form-item">
 	  <label for="userid"></label>
 	  <input type="text" class="user_id" name="userid" required="required" placeholder="User ID" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></input>
