@@ -1,0 +1,67 @@
+/*!
+ * Start Bootstrap - Blog Post HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+body {
+    padding-top: 70px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+    font-family: "ƒqƒ‰ƒMƒmŠpƒS Pro","Hiragino Kaku Gothic Pro","ƒƒCƒŠƒI",Meiryo,Osaka,"‚l‚r ‚oƒSƒVƒbƒN","MS PGothic","MS Gothic","‚l‚r ƒSƒVƒbƒN","Helvetica Neue",Helvetica,Arial,sans-serif;
+	
+}
+
+.title{
+  color: #999;
+  margin-top: 15px;
+  font-size: 27px;
+  margin-bottom: 15px;
+  line-height: 1.2em;
+}
+
+.mt60{
+  margin-top:60px;
+}
+
+.calendar{
+  width:320px;
+  height:440px;
+}
+
+.request{
+  position:relative;
+  height:550px;
+}
+
+.request > p{
+  margin:0 auto;
+}
+
+.request .subtitle{
+  margin-top:1em;
+  font-size:1.2em;
+}
+
+.request > hr{
+  margin-top:0.2em;
+  margin-bottom:1em;
+}
+
+.request .set_time{
+  width:200px;
+  margin-top:5px;
+  margin-left:10px;
+}
+
+.request > p > input{
+  width:100px;
+}
+
+.apply_button{
+  margin-top:40px;
+  text-align:center;
+}
+
+footer {
+    margin: 50px 0;
+}
+
