@@ -32,7 +32,7 @@
     <h1 class="site-title">MODEL SEARCH</h1>
     <p class="site-description">Check out our Service!</p>
     <div class="buttons">
-      <a class="button" href="#about">新規登録</a>
+      <a class="button" href="./register.php">新規登録</a>
       <div class="button button-showy"><input type="submit" id="login" name="login" value="ログイン"></div>
     </div>
   </header>
