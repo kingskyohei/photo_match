@@ -8,14 +8,14 @@ $db['pass'] = "kings531";
 $db['dbname'] = "photo_match";
 
 //ログインユーザー
-$userid = $_SESSION["userid"];
+$user_name = $_SESSION["user_name"];
 
 
 //　閲覧ユーザーのid
 //$mt_user_id = $_GET["user_id"];
 
 // ログイン状態のチェック
-if (!isset($_SESSION["userid"])) {
+if (!isset($_SESSION["user_name"])) {
   header("Location: logout.php");
   exit;
 }

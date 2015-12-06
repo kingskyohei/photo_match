@@ -149,14 +149,10 @@
   </footer>
 <div id="sign_up">
   <h3 class="log_in" >ログイン</h3>
-  <!-- $_SERVER['PHP_SELF']はXSSの危険性があるので、actionは空にしておく -->
-  <!--<form id="loginForm" name="loginForm" action="<?php print($_SERVER['PHP_SELF']) ?>" method="POST">-->
-  <?php echo $row['user_pass'];?>
-  <div><?php echo $errorMessage ?></div>
   <form id="loginForm" name="loginForm" action="./login.php" method="POST">
     <div class="form-item">
-	  <label for="userid"></label>
-	  <input type="text" class="user_id" name="userid" required="required" placeholder="User ID" value="<?php echo htmlspecialchars($_POST["userid"], ENT_QUOTES); ?>"></input>
+	  <label for="user_name"></label>
+	  <input type="text" class="user_id" name="user_name" required="required" placeholder="User ID" value="<?php echo htmlspecialchars($_POST["user_name"], ENT_QUOTES); ?>"></input>
 	</div>
 	<div class="form-item">
 	  <label for="password"></label>

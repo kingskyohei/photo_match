@@ -12,32 +12,40 @@ session_start();
 $user_mst_access = new User_Mst_Access();
 
 /*画面から入力したIDとパスワード*/
-$user_id = $_POST["userid"];
+$user_name = $_POST["user_name"];
 $password = $_POST["password"];
 // エラーメッセージの初期化
 $errorMessage = "";
 
 // ログインボタンが押された場合
-if (isset($_POST["userid"])) {
+if (isset($_POST["user_name"])) {
 
   // １．ユーザIDの入力チェック
-  if (empty($_POST["userid"])) {
+  if (empty($_POST["user_name"])) {
     $errorMessage = "ユーザIDが未入力です。";
   } else if (empty($_POST["password"])) {
     $errorMessage = "パスワードが未入力です。";
   } 
 
+/*
+  var_dump($_POST["user_name"]);
+  var_dump($_POST["password"]);
+  var_dump($user_name);
+  var_dump($password);
+  */
   // ２．ユーザIDとパスワードが入力されていたら認証する
-  if (!empty($_POST["userid"]) && !empty($_POST["password"])) {
+  if (!empty($_POST["user_name"]) && !empty($_POST["password"])) {
     // mysqlへの接続
     try {
-  		  if($user_mst_access->login($user_id,$password)){
+  		  if($user_mst_access->login($user_name,$password)){
+          $_SESSION["user_name"] = $user_name;
     	    header("Location: mypage.php");
+
         	exit;
         }else{
-           throw new Exception('DBアクセスエラー');
+          // throw new Exception('DBアクセスエラー');
         }
-    } catch (PDOException $e) {
+    } catch (Exception $e) {
         print "エラー!: " . $e->getMessage() . "<br/>";
         die();
     }
