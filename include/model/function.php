@@ -213,23 +213,9 @@ class Yoyaku_Tbl_Access{
     $ins_end_time = $yoyaku_info_list['end_time'];
     // 所要時間
     $ins_hour = $yoyaku_info_list['hour'];
-/*
-    var_dump($ins_user_id);
-    var_dump($ins_mt_user_id);
-    var_dump($ins_title);
-    var_dump($ins_content);
-    var_dump($ins_place);
-    var_dump($ins_year);
-    var_dump($ins_month);
-    var_dump($ins_date);
-    var_dump($ins_start_time);
-    var_dump($ins_end_time);
-    var_dump($ins_hour);
-*/
 
+    $prepare = $dbh->prepare("INSERT INTO yoyaku_table(user_id,mt_user_id,title,content,place,year,month,date,start_time,end_time,hour,check_flg,syonin_flg,register_time) VALUES (:user_id, :mt_user_id, :title, :content,:place,:year,:month,:date,:start_time,:end_time,:hour,0,0,cast(now() as datetime))");
 
-    $prepare = $dbh->prepare("INSERT INTO yoyaku_table(user_id,mt_user_id,title,content,place,year,month,date,start_time,end_time,hour,check_flg,syonin_flg,register_date) VALUES (:user_id, :mt_user_id, :title, :content,:place,:year,:month,:date,:start_time,:end_time,:hour,0,0,cast(now() as datetime))");
-    var_dump( $dbh->prepare("INSERT INTO yoyaku_table(user_id,mt_user_id,title,content,place,year,month,date,start_time,end_time,hour,check_flg,syonin_flg,register_date) VALUES (:user_id, :mt_user_id, :title, :content,:place,:year,:month,:date,:start_time,:end_time,:hour,0,0,cast(now() as datetime))"));
     $prepare->bindValue(':user_id',$ins_user_id,PDO::PARAM_INT);
     $prepare->bindValue(':mt_user_id',$ins_mt_user_id,PDO::PARAM_INT);
     $prepare->bindValue(':title',$ins_title,PDO::PARAM_STR);
