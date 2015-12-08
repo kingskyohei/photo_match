@@ -227,16 +227,8 @@ class Yoyaku_Tbl_Access{
     $prepare->bindValue(':start_time',$ins_start_time,PDO::PARAM_STR);
     $prepare->bindValue(':end_time',$ins_end_time,PDO::PARAM_STR);
     $prepare->bindValue(':hour',$ins_hour,PDO::PARAM_STR);
-
     //insertを実行
     return $prepare ->execute();
-
-    //$result = $dbh->prepare("select * from yoyaku_talbe ");
-
-
-
-
-    //成功したらtrue
 
   }
 
