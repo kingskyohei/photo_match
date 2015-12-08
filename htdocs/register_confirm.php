@@ -5,20 +5,7 @@ session_start();
 require_once '../include/conf/const.php';
 // 関数ファイル読み込み
 require_once '../include/model/function.php';
-/*
-session_start();
 
-$userid = $_SESSION["userid"];
-$mt_user_id = $_SESSION["mt_user_id"];
-*/
-
-// ログイン状態のチェック
-/*
-if (!isset($_SESSION["userid"])) {
-  header("Location: logout.php");
-  exit;
-}
-*/
 // エラーメッセージの初期化
 $errorMessage = "";
 

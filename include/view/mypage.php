@@ -88,7 +88,7 @@
                         </h4>
                         <p>予約番号：<?php echo $yoyaku_id ?></p>
                         <p>可否：<?php echo $flg ?></p>
-                        <p>相手のページ：<a href="./main.php"><?php echo $mt_user_id ?></a></p>
+                        <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
                    </div>
                 </div>
 

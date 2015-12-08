@@ -5,12 +5,7 @@ require_once '../include/conf/const.php';
 require_once '../include/model/function.php';
 
 session_start();
-/*
-$db['host'] = "localhost";  // DBサーバのurl
-$db['user'] = "root";
-$db['pass'] = "kings531";
-$db['dbname'] = "photo_match";
-*/
+
 $name = $_SESSION["name"];
 $furigana = $_SESSION["furigana"];
 $mail = $_SESSION["mail"];
@@ -23,9 +18,6 @@ $register_info_array['mail'] = $mail;
 
 // user_mstのインスタンス生成
 $user_mst_access = new User_Mst_Access();
-
-
-// ログイン状態のチェック
 
 // エラーメッセージの初期化
 $errorMessage = "";

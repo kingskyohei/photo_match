@@ -1,82 +1,74 @@
-
 <?php
+
+// 設定ファイル読み込み
+require_once '../include/conf/const.php';
+// 関数ファイル読み込み
+require_once '../include/model/function.php';
+
 session_start();
 
+// user_mstのインスタンス生成
+$user_mst_access = new User_Mst_Access();
+
+// match tableのインスタンス生成
+$match_tbl_access = new Match_Tbl_Access();
+
+/*
 $db['host'] = "localhost";  // DBサーバのurl
 $db['user'] = "root";
 $db['pass'] = "kings531";
 $db['dbname'] = "photo_match";
-
+*/
 //ログインユーザー
+$user_id = $_SESSION["user_id"];
 $user_name = $_SESSION["user_name"];
 
 
+
+//$_SESSION["user_id"] = 
 //　閲覧ユーザーのid
 //$mt_user_id = $_GET["user_id"];
 
 // ログイン状態のチェック
-if (!isset($_SESSION["user_name"])) {
+if (!isset($_SESSION["user_id"])) {
   header("Location: logout.php");
   exit;
 }
 
-
 // エラーメッセージの初期化
 $errorMessage = "";
 
+try{
+    $result = $user_mst_access -> show_profile($user_id);
 
-// mysqlへの接続
-$mysqli = new mysqli($db['host'], $db['user'], $db['pass']);
-if ($mysqli->connect_errno) {
-  print('<p>データベースへの接続に失敗しました。</p>' . $mysqli->connect_error);
-  exit();
-}
+    foreach($result as $row) {
+    // パスワード(暗号化済み）の取り出し 
+      $user_name = $row['user_name'];
 
-// データベースの選択
-$mysqli->select_db($db['dbname']);
-
-// userテーブルへクエリの実行
-$query = "SELECT * FROM pm_user WHERE user_id = $userid ";
-//$query = "SELECT * FROM biyo_news where news_id = 1";
+    }
+  }catch(Exception $e){
+    print "エラー!: " . $e->getMessage() . "<br/>";
+    die();
+  }
 
 
-$result = $mysqli->query($query);
+try{
+    $yoyaku = $match_tbl_access -> match_show($user_id);
 
-if (!$result) {
-  print('クエリーが失敗しました。' . $mysqli->error);
-  $mysqli->close();
-  exit();
-}
+    foreach($yoyaku as $row) {
+    // パスワード(暗号化済み）の取り出し 
+      $mt_user_id = $row['mt_user_id'];
+      $yoyaku_id = $row['yoyaku_id'];
+      $flg = $row['syonin_flg'];
+    }
+  }catch(Exception $e){
+    print "エラー!: " . $e->getMessage() . "<br/>";
+    die();
+  }
 
-while ($row = $result->fetch_assoc()) {
-  // パスワード(暗号化済み）の取り出し 
-  $user_name = $row['user_name'];
-}
 
-// 予約テーブルへクエリの実行
-$yoyaku_query = "SELECT * FROM yoyaku_table WHERE mt_user_id = '" . $userid . "'";
-//$query = "SELECT * FROM biyo_news where news_id = 1";
-
-$yoyaku_result = $mysqli->query($yoyaku_query);
-
-if (!$yoyaku_result) {
-  print('クエリーが失敗しました。' . $mysqli->error);
-  $mysqli->close();
-  exit();
-}
-
-while ($yoyaku_row = $yoyaku_result->fetch_assoc()) {
-  // パスワード(暗号化済み）の取り出し 
-  $yoyaku_id = $yoyaku_row['yoyaku_id'];
-  $flg = $yoyaku_row['syonin_flg'];
-  $mt_user_id = $yoyaku_row['user_id'];
-}
-
-//　閲覧ユーザーのid
-//$mt_user_id = $_GET["user_id"];
-
-$_SESSION["userid"] = $userid;
-$_SESSION["mt_user_id"] = $mt_user_id;
+$_SESSION["user_id"] = $user_id;
+//$_SESSION["mt_user_id"] = $mt_user_id;
 
  // テンプレートファイル読み込み
 include_once '../include/view/mypage.php';
