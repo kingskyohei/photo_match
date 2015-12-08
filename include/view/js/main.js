@@ -20,7 +20,7 @@ $(function () {
         });
 
         // JSON を取得し、initGallery 関数を実行
-        $.getJSON('./data/content.json', initGallery);
+        $.getJSON('../include/view/data/content.json', initGallery);
 
         // ギャラリーを初期化する
         function initGallery (data) {
@@ -68,7 +68,7 @@ $(function () {
                                         '</time>' +
                                     '</span>' +
                                     '<span class="inner2">' +        
-                                    	'<b class="title"><form action="./main.php?user_id=2" method="get"><input name="user_id" type="hidden" value="2"><input type="submit" value="閲覧"></form>' + item.user + '</b>' +
+                                    	'<b class="title"><form action="./profile.php?user_id=2" method="get"><input name="user_id" type="hidden" value="2"><input type="submit" value="閲覧"></form>' + item.user + '</b>' +
 
                                     '</span>' +
                                 '</span>' +

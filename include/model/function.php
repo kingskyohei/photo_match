@@ -148,9 +148,6 @@ class User_Mst_Access{
     $_SESSION = array(); 
     session_destroy();
   }
-
-
-
 }
 
 
