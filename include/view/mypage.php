@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Shop Item - Start Bootstrap Template</title>
+    <title>マイページ画面</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../include/view/css/bootstrap.min.css" rel="stylesheet">

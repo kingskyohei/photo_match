@@ -10,7 +10,5 @@ $user_mst_access = new User_Mst_Access();
 //ログアウト処理
 $user_mst_access->logout();
 
-
-
  // テンプレートファイル読み込み
 include_once '../include/view/logout.php';

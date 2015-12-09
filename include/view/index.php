@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Chapter 06-05 &#xB7; jQuery 最高の教科書</title>
+<title>MODEL SEARCH</title>
 <link rel="stylesheet" href="../include/view/css/normalize.css">
 <link rel="stylesheet" href="../include/view/css/colorbox.css">
 <link rel="stylesheet" href="../include/view/css/main.css">

@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>予約依頼</title>
   <link rel="stylesheet" href="../include/view/css/bootstrap.min.css">
 </head>
 <body>

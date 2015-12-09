@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>予約依頼完了</title>
   <link rel="stylesheet" href="../include/view/css/bootstrap.min.css">
   <!--<link rel="stylesheet" href="css/yoyaku_comp.css">-->
 </head>

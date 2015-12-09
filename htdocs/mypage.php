@@ -13,21 +13,9 @@ $user_mst_access = new User_Mst_Access();
 // match tableのインスタンス生成
 $match_tbl_access = new Match_Tbl_Access();
 
-/*
-$db['host'] = "localhost";  // DBサーバのurl
-$db['user'] = "root";
-$db['pass'] = "kings531";
-$db['dbname'] = "photo_match";
-*/
 //ログインユーザー
 $user_id = $_SESSION["user_id"];
 $user_name = $_SESSION["user_name"];
-
-
-
-//$_SESSION["user_id"] = 
-//　閲覧ユーザーのid
-//$mt_user_id = $_GET["user_id"];
 
 // ログイン状態のチェック
 if (!isset($_SESSION["user_id"])) {

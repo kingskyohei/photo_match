@@ -2,14 +2,14 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <title>予約依頼入力確認</title>
   <link rel="stylesheet" href="../include/view/css/bootstrap.min.css">
   <link rel="stylesheet" href="../include/view/css/yoyaku_confirm.css">
 </head>
 <body>
   <div id="page">
     <div class="container">
-      <h1>予約依頼フォーム</h1>
+      <h1>予約依頼入力確認</h1>
       
       <div class="row">
         <div class="col-sm-9">
