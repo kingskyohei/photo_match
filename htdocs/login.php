@@ -31,11 +31,13 @@ if (isset($_POST["user_name"])) {
   if (!empty($_POST["user_name"]) && !empty($_POST["password"])) {
     // mysqlへの接続
     try {
-        $rtn_id = $user_mst_access->login($user_name,$password);
+        $rtn = $user_mst_access->login($user_name,$password);
 
-  		  if(isset($rtn_id)){
-          $_SESSION["user_id"] = $rtn_id;
+  		  if(isset($rtn)){
+          $_SESSION["user_id"] = $rtn['user_id'];
           $_SESSION["user_name"] = $user_name;
+          $_SESSION["user_kbn"] = $rtn['user_kbn'];
+          var_dump($rtn['user_kbn']);
      	    header("Location: mypage.php");
         	exit;
         }else{

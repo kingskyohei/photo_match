@@ -57,7 +57,7 @@
                         <a href="logout.php">ログアウト</a>
                     </li>
                     <li>
-                        <a href=""><p>ようこそ<?=htmlspecialchars($user_name, ENT_QUOTES); ?>さん</p></a>
+                        <a href=""><p>ようこそ<?php echo $user_name ?>さん</p></a>
                     </li>
                 </ul>
             </div>
@@ -72,7 +72,7 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">予約通知</p>
+                <p class="lead">予約通知<?php echo $camera_syurui ?></p>
                 <div class="list-group">
                     <a href="#" class="list-group-item active">Category 1</a>
                     <a href="#" class="list-group-item">Category 2</a>

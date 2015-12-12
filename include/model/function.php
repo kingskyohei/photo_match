@@ -73,20 +73,21 @@ class User_Mst_Access{
   public function login($user_name, $password){
 
   	  $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
-      var_dump($user_name);
+      
 
       $prepare = $dbh->prepare('SELECT * FROM user_mst WHERE user_name = :user_name');
       
       $prepare->bindValue(':user_name',$user_name,PDO::PARAM_STR);
       //foreach($dbh->query("SELECT * FROM pm_user WHERE user_login = '" . $user_id . "'") as $row) {
       $prepare->execute();
-
+      $rtn = null;
       /*  */
       while ($row = $prepare->fetch(PDO::FETCH_ASSOC)) {
         $db_hashed_pwd = $row['password'];
-        $user_id = $row['user_id'];
+        $rtn['user_id'] = $row['user_id'];
+        $rtn['user_kbn'] = $row['user_kbn'];
       }
-
+     //var_dump($rtn);
   	 $dbh = null;
 
      //var_dump($user_id);
@@ -101,7 +102,7 @@ class User_Mst_Access{
      //var_dump($_POST["password"]);
         session_regenerate_id(true);
 
-        return $user_id;
+        return $rtn;
         exit;
       } else {
         // 認証失敗
@@ -260,6 +261,53 @@ class Yoyaku_Tbl_Access{
   }
 
 }
+
+/**
+ * ツールテーブルクラス
+ */
+class Tool_Tbl_Access{
+  //設定
+
+  const HOST_NAME = DB_HOST;
+  const USER_NAME = DB_USER;
+  const PASSWORD = DB_PASSWD;
+  const DATABASE_NAME = DB_NAME;
+
+  private $dbh = null;
+
+  /**
+   * コンストラクタ
+   */
+  function __construct(){
+    $this->dbh = new PDO(
+      DB_HOST, 
+      DB_USER, 
+      DB_PASSWD
+    );
+  }
+
+  public function show_tool($user_id){
+
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    $prepare = $dbh->prepare('SELECT * FROM tool_table WHERE user_id = :user_id');
+
+    $prepare->bindValue(':user_id', intval($user_id), PDO::PARAM_INT); 
+
+    $prepare->execute();
+
+    $result = $prepare->fetchAll();
+
+    if (!isset($result)) {
+      throw new Exception('結果がありません');
+    }else{
+      return $result;
+    }
+
+  }
+}
+
+
 
 
 /**

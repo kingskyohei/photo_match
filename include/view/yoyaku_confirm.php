@@ -68,7 +68,7 @@
                 <a href="./yoyaku_comp.php" class="btn btn-default">送る</a>
                 <a href="./yoyaku.php" class="btn btn-default">戻る</a>
               </div>
-            </div>
+            </div>  
           </form>
         </div>
       </div>

@@ -62,6 +62,5 @@ try{
 $_SESSION["mt_user_id"] = $mt_user_id;
 $_SESSION["userid"] = $userid;
 
-
  // テンプレートファイル読み込み
 include_once '../include/view/profile.php';
