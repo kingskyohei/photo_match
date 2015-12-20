@@ -192,7 +192,7 @@ $(document).ready(function () {
                     <a href="logout.php">ログアウト</a>
                 </li>
                 <li>
-                    <a href=""><p>ようこそ<?=htmlspecialchars($_SESSION["user_name"], ENT_QUOTES); ?>さん</p></a>
+                    <a href=""><p>ようこそ<?php echo $user_name ?>さん</p></a>
                 </li>
             </ul>
         </div>

@@ -77,22 +77,32 @@
                     <a href="#" class="list-group-item active">Category 1</a>
                     <a href="#" class="list-group-item">Category 2</a>
                     <a href="#" class="list-group-item">Category 3</a>
-                    <a href="../htdocs/message.php" class="list-group-item">メッセージ</a>
                 </div>
             </div>
 
             <div class="col-md-9">
 
-                <div class="thumbnail">
-                    <div class="caption-full">
-                        <h4><a href="#">通知内容</a>
-                        </h4>
-                        <p>予約番号：<?php echo $yoyaku_id ?></p>
-                        <p>可否：<?php echo $flg ?></p>
-                        <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
-                   </div>
-                </div>
 
+
+        <!-- <?php debug($memo); ?> デバッグ-->
+
+
+                <?php foreach($yoyaku as $row){
+                    foreach($row as $row2){
+                    } ?>
+                    <div class="thumbnail">
+                        <div class="caption-full">
+                            <h4><a href="#">通知内容</a>
+                            </h4>
+                            <p>予約番号：<?php echo $row2['yoyaku_id']; ?></p>
+                            <p>可否：<?php echo $row2['syonin_flg']; ?></p>
+                            <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $row2['mt_user_id']; ?></a></p>
+                       </div>
+                    </div>
+                <?php 
+                    }
+                }
+                ?>
             </div>
 
         </div>

@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>マイページ画面</title>
+    <title>メッセージ</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../include/view/css/bootstrap.min.css" rel="stylesheet">
@@ -68,54 +68,38 @@
 
     <!-- Page Content -->
     <div class="container">
-
-        <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">予約通知<?php echo $camera_syurui ?></p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
-                    <a href="../htdocs/message.php" class="list-group-item">メッセージ</a>
+     <h1>メッセージフォーム</h1>
+          <div class="row">
+            <div class="col-sm-9">
+              <form action="./message.php" class="form-horizontal" method="post">
+                <div class="form-group">
+                  <label for="input-title" class="col-sm-2 control-label">送信相手</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="mt_user_id" class="form-control" id="input-title" placeholder="送信相手" required="required">
+                  </div>
                 </div>
-            </div>
-
-            <div class="col-md-9">
-
-                <div class="thumbnail">
-                    <div class="caption-full">
-                        <h4><a href="#">通知内容</a>
-                        </h4>
-                        <p>予約番号：<?php echo $yoyaku_id ?></p>
-                        <p>可否：<?php echo $flg ?></p>
-                        <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
-                   </div>
+                <div class="form-group">
+                  <label for="input-title" class="col-sm-2 control-label">タイトル</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="title" class="form-control" id="input-title" placeholder="タイトル" required="required">
+                  </div>
                 </div>
-
+                <div class="form-group">        
+                  <label for="input-content" class="col-sm-2 control-label">内容</label>
+                  <div class="col-sm-10">
+                    <input type="text" name="content" class="form-control" id="jyuaku-content" placeholder="内容" required="required">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <input type="submit" class="btn btn-default" value="送信">
+                  </div>
+                </div>
+              </form>
             </div>
-
-        </div>
-
-    </div>
+          </div>
     <!-- /.container -->
-
-    <div class="container">
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
-                </div>
-            </div>
-        </footer>
-
     </div>
-    <!-- /.container -->
-
     <!-- jQuery -->
     <script src="../include/view/js/jquery.js"></script>
 

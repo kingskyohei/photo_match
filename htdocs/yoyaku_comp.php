@@ -5,9 +5,10 @@ session_start();
 require_once '../include/conf/const.php';
 // 関数ファイル読み込み
 require_once '../include/model/function.php';
+// 関数ファイル読み込み
+require_once '../include/model/entity.php';
 
-$yoyaku_tbl_access = new Yoyaku_Tbl_Access();
-
+$yoyaku = new Yoyaku();
 
 $user_id = $_SESSION["user_id"];
 $mt_user_id = $_SESSION["mt_user_id"];
@@ -44,8 +45,8 @@ try{
   $yoyaku_info_list["end_time"] = $end_time;
   $yoyaku_info_list["hour"] = $hour;
 
-  $rtn_id = $yoyaku_tbl_access->yoyaku_insert($user_id,$mt_user_id,$yoyaku_info_list);
-  var_dump($rtn_id);
+  $rtn_id = $yoyaku->yoyaku_insert($user_id,$mt_user_id,$yoyaku_info_list);
+  //var_dump($rtn_id);
 
 }catch(Exception $e){
   print "エラー!: " . $e->getMessage() . "<br/>";
@@ -53,8 +54,8 @@ try{
 }
 
 
-
 // コネクション取得
+/*
 if ($link = mysqli_connect($host, $user, $passwd, $dbname)) {
 
   // mysqlへの接続
@@ -70,7 +71,7 @@ if ($link = mysqli_connect($host, $user, $passwd, $dbname)) {
       //print 'テーブル更新失敗';
   }
 
-  /*
+  
   if ($mysqli->connect_errno) {
     print('<p>データベースへの接続に失敗しました。</p>' . $mysqli->connect_error);
     exit();
@@ -84,10 +85,10 @@ if ($link = mysqli_connect($host, $user, $passwd, $dbname)) {
   //mysqli_set_charset($link, 'utf8');
 
   $query = 'INSERT INTO yoyaku_table(user_id,title,content,place,year,month,date,start_time,end_time,hour,register_time) VALUES (\''. $user_id .'\',' . $title .'\','. $comment .'\',' . $place .'\',' . $year . '\','. $month .'\',' . $date . '\',' . $start_time . '\',' . $end_time . '\',' . $hour . '\', cast(now() as datetime))';
-  var_dump($query);
-  */
+  //var_dump($query);
+  
 
 }
-
+*/
  // テンプレートファイル読み込み
 include_once '../include/view/yoyaku_comp.php';

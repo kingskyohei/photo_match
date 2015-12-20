@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>マイページ画面</title>
+    <title>写真アップロード画面</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="../include/view/css/bootstrap.min.css" rel="stylesheet">
@@ -68,37 +68,44 @@
 
     <!-- Page Content -->
     <div class="container">
-
-        <div class="row">
-
-            <div class="col-md-3">
-                <p class="lead">予約通知<?php echo $camera_syurui ?></p>
-                <div class="list-group">
-                    <a href="#" class="list-group-item active">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
-                    <a href="../htdocs/message.php" class="list-group-item">メッセージ</a>
-                </div>
-            </div>
-
-            <div class="col-md-9">
-
-                <div class="thumbnail">
-                    <div class="caption-full">
-                        <h4><a href="#">通知内容</a>
-                        </h4>
-                        <p>予約番号：<?php echo $yoyaku_id ?></p>
-                        <p>可否：<?php echo $flg ?></p>
-                        <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
-                   </div>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-    <!-- /.container -->
+      <form enctype="multipart/form-data" method= "post" action = "../htdocs/upload.php">
+        <fieldset>
+          <legend>画像ファイルを選択(GIF, JPEG, PNGのみ対応)</legend>
+          <input type="file" name="upfile" /><br />
+          <input type="submit" value="送信" />
+        </fieldset>
+      </form>
+    <?php if (!empty($msgs)): ?>
+      <fieldset>
+        <legend>メッセージ</legend>
+    <?php foreach ($msgs as $msg): ?>
+        <ul>
+            <li style="color:<?=h($msg[0])?>;"><?=h($msg[1])?></li>
+        </ul>
+    <?php endforeach; ?>
+      </fieldset>
+    <?php endif; ?>
+    <?php if (!empty($rows)): ?>
+       <fieldset>
+         <legend>サムネイル一覧(クリックすると原寸大表示)</legend>
+    <?php foreach ($rows as $i => $row): ?>
+    <?php if ($i): ?>
+         <hr />
+    <?php endif; ?>
+         <p>
+           <?=sprintf(
+               '<a href="?id=%d"><img src="data:%s;base64,%s" alt="%s" /></a>',
+               $row['id'],
+               image_type_to_mime_type($row['type']),
+               base64_encode($row['thumb_data']),
+               h($row['name'])
+           )?><br />
+           ファイル名: <?=h($row['name'])?><br />
+           日付: <?=h($row['date'])?><br clear="all" />
+        </p>
+    <?php endforeach; ?>
+       </fieldset>
+    <?php endif; ?>
 
     <div class="container">
 

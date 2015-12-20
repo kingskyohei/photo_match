@@ -8,14 +8,15 @@ require_once '../include/model/entity.php';
 
 session_start();
 
-//ログインユーザー
+//sessionで保持するログインユーザー情報
+// ユーザーID
 $user_id = $_SESSION["user_id"];
+// ユーザーネーム
 $user_name = $_SESSION["user_name"];
+// ユーザー区分
 $user_kbn = $_SESSION["user_kbn"];
 
-$yoyaku_class = new Yoyaku();
-
-// ログイン状態のチェック
+// ログアウト時にログアウト画面に遷移する。
 if (!isset($_SESSION["user_id"])) {
   header("Location: logout.php");
   exit;
@@ -24,73 +25,90 @@ if (!isset($_SESSION["user_id"])) {
 // エラーメッセージの初期化
 $errorMessage = "";
 
-
 if($user_kbn === "1"){
 
+  // カメラマンクラスのインスタンスを生成
   $user_syubetu = new Cameraman();
 
   try{
-      $result = $user_syubetu -> show_profile($user_id,$user_kbn);
-      //var_dump($result);
-      foreach($result as $row) {
-      // パスワード(暗号化済み）の取り出し 
-        $user_name = $row['user_name'];
-        $camera_syurui = $row['camera_syurui'];
-        $camera_syurui_suryo = $row['camera_syurui_suryo'];
-        $lens_syurui = $row['lens_syurui'];
-        //$user_camera = $row['']
-        //var_dump($user_name);
-        //var_dump($camera_syurui);
-      }
-    }catch(Exception $e){
-      print "エラー!: " . $e->getMessage() . "<br/>";
-      die();
+    // ユーザーマスタとToolテーブルから画面に表示するログインユーザーの情報を取得
+    $result = $user_syubetu -> show_profile($user_id,$user_kbn);
+      
+    // 画面に表示するカメラマンのプロフィール情報(プロフィール、カメラ)を設定
+    foreach($result as $row) {      
+      //カメラマンのプロフィール情報
+      $user_name = $row['user_name'];
+      //カメラの情報
+      $camera_syurui = $row['camera_syurui'];
+      $camera_syurui_suryo = $row['camera_syurui_suryo'];
+      $lens_syurui = $row['lens_syurui'];
     }
-
-
-  try{
-      $yoyaku = $yoyaku_class -> match_show($user_id);
-
-      foreach($yoyaku as $row) {
-      // パスワード(暗号化済み）の取り出し 
-        $mt_user_id = $row['mt_user_id'];
-        $yoyaku_id = $row['yoyaku_id'];
-        $flg = $row['syonin_flg'];
-      }
-    }catch(Exception $e){
-      print "エラー!: " . $e->getMessage() . "<br/>";
-      die();
-    }
-
-
-  $_SESSION["user_id"] = $user_id;
-  //$_SESSION["mt_user_id"] = $mt_user_id;
-
-   // テンプレートファイル読み込み
-  include_once '../include/view/mypage_camera.php';
+  }catch(Exception $e){
+    print "エラー!: " . $e->getMessage() . "<br/>";
+    die();
+  }
 
 }else{
+
+  // モデルクラスのインスタンスを生成する
   $user_syubetu = new Model();  
 
   try{
-      $result = $user_syubetu -> show_profile($user_id,$user_kbn);
-      //var_dump($result);
-      foreach($result as $row) {
-      // パスワード(暗号化済み）の取り出し 
-        $user_name = $row['user_name'];
+    // 画面に表示するモデルのプロフィール情報を設定
+    $result = $user_syubetu -> show_profile($user_id,$user_kbn);
 
-
-        //$user_camera = $row['']
-        //var_dump($user_name);
-        //var_dump($camera_syurui);
-      }
-    }catch(Exception $e){
-      print "エラー!: " . $e->getMessage() . "<br/>";
-      die();
+    // 画面に表示するカメラマンのプロフィール情報(プロフィール、カメラ)を設定
+    foreach($result as $row) {
+      //カメラマンのプロフィール情報 
+      $user_name = $row['user_name'];
     }
-   // テンプレートファイル読み込み
-  include_once '../include/view/mypage_model.php';
-
+  }catch(Exception $e){
+    print "エラー!: " . $e->getMessage() . "<br/>";
+    die();
+  }
 }
+
+try{
+    // 予約クラスのインスタンス作成
+    $yoyaku_class = new Yoyaku();
+    // マッチテーブルから予約情報を取得
+    $yoyaku = $yoyaku_class -> match_show($user_id);
+    // 画面に表示する予約情報
+    /*
+      foreach($yoyaku as $row) {
+        // 予約相手のID
+        $mt_user_id = $row['mt_user_id'];
+        // 予約相手のユーザー区分
+        $mt_user_kbn = $row['mt_user_kbn'];
+        // 予約管理番号
+        $yoyaku_id = $row['yoyaku_id'];
+        // 承認フラグ(申請許可=1 申請前/拒否=0)
+        $flg = $row['syonin_flg'];
+    }
+    */
+  }catch(Exception $e){
+    print "エラー!: " . $e->getMessage() . "<br/>";
+    die();
+  }
+
+  // 次画面に自分と予約相手のログインIDを渡す
+  // ログイン状態を維持する
+  $_SESSION["user_id"] = $user_id;
+  // 予約相手のプロフィールを表示する
+  $_SESSION["mt_user_id"] = $mt_user_id;
+  // 予約相手のユーザー区分
+  $_SESSION["mt_user_kbn"] = $mt_user_kbn;
+
+
+  // ユーザー区分が"1"(カメラマン)
+  if($user_kbn === "1"){
+    // 画面表示ファイル(view)の読み込み
+    include_once '../include/view/mypage_camera.php';
+  }else{
+    // 画面表示ファイル(view)の読み込み
+    include_once '../include/view/mypage_model.php';
+  }
+
+
 
 

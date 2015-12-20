@@ -72,16 +72,33 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">予約通知</p>
+                <p class="lead">メニュー</p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                    <a href="#" class="list-group-item active">プロフィール</a>
+                    <a href="#" class="list-group-item">予約確認</a>
+                    <a href="../htdocs/upload.php" class="list-group-item">写真アップロード</a>
+                    <a href="../htdocs/message.php" class="list-group-item">メッセージ</a>
                 </div>
             </div>
 
             <div class="col-md-9">
 
+                <?php foreach($yoyaku as $row){ ?>
+
+                    <div class="thumbnail">
+                        <div class="caption-full">
+                            <h4><a href="#">通知内容</a>
+                            </h4>
+                            <p>予約番号：<?php echo $row['yoyaku_id']; ?></p>
+                            <p>可否：<?php echo $row['syonin_flg']; ?></p>
+                            <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $row['mt_user_id']; ?></a></p>
+                       </div>
+                    </div>
+                <?php 
+                }
+                ?>
+
+<!--
                 <div class="thumbnail">
                     <div class="caption-full">
                         <h4><a href="#">通知内容</a>
@@ -91,6 +108,9 @@
                         <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
                    </div>
                 </div>
+-->
+
+
                 <div class="thumbnail">
                     <div class="caption-full">
                         <h4><a href="#">カメラマンのツール</a>
