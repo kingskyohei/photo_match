@@ -124,26 +124,16 @@ $(document).ready(function () {
         // イベントソース
         eventSources: [
             {
-                events: [
-                    {
-                        title: 'event1',
-                        start: '2013-01-01'
-                    },
-                    {
-                        title: 'event2',
-                        start: '2013-01-02',
-                        end: '2013-01-03'
-                    },
-                    {
-                        title: 'event3',
-                        start: '2013-01-05 12:30:00'
-                    },
-                    {
-                        title: '<?php echo $yoyaku_title ?>',
-                        start: '2015-11-22 10:30:00',
-                        end: '2015-11-22 12:30:00'
-                    }
-                ]
+
+                events :<?php echo json_encode($userData); ?>
+                //events: [
+                //    {
+                //        title: '<?php echo $yoyaku_title ?>',
+                //        start: '<?php echo $year ?>-<?php echo $month ?>-<?php echo $date ?> 10:30:00',
+                //        end: '2015-12-22-22 12:30:00'
+                 //   },
+                
+                //]
             }
         ]
     });

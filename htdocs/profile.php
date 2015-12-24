@@ -22,6 +22,9 @@ $user_name = $_SESSION["user_name"];
 $mt_user_id = $_SESSION["mt_user_id"];
 $mt_user_kbn = $_SESSION["mt_user_kbn"];
 
+
+$user_id = $_GET["user_id"];
+
 //var_dump($mt_user_id);
 //var_dump($mt_user_kbn);
 
@@ -52,6 +55,7 @@ if($mt_user_kbn === "1"){
       $user_name = $row['user_name'];
       // カメラの情報
       $camera_syurui = $row['camera_syurui'];
+      // 
       $camera_syurui_suryo = $row['camera_syurui_suryo'];
       $lens_syurui = $row['lens_syurui'];
       $mt_user_name = $row['user_name'];
@@ -103,6 +107,20 @@ try{
 try{
     // 
     $result_yoyaku = $match_tbl_access -> schedule_show($mt_user_id);
+
+
+    $userData = array();
+    //var_dump($result_yoyaku);
+    foreach($result_yoyaku as $row){
+      $userData[]=array(
+      'title'=>$row['title'],
+      'start'=>$row['year'].'-'.$row['month'].'-'.$row['date'].' '.substr($row['start_time'],1,2) . ':' . substr($row['start_time'],2,2). ':00',
+      'end'=>$row['year'].'-'.$row['month'].'-'.$row['date'].' '.substr($row['end_time'],1,2) . ':' . substr($row['end_time'],2,2). ':00'
+      );
+    }
+/*
+    //配列の長さ
+    $length_num = count($result_yoyaku);
     //var_dump($result_yoyaku);
     foreach ($result_yoyaku as $row){
       // パスワード(暗号化済み）の取り出し
@@ -117,6 +135,7 @@ try{
       $start_datetime_display = $year . '-' . $month . '-' . $date .' ' . $start_time ;
       $end_datetime_display = $year . '-' . $month . '-' . $date .' ' . $end_time ;
     }
+    */
   }catch(Exception $e){
     print "エラー!: " . $e->getMessage() . "<br/>";
     die();

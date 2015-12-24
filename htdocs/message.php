@@ -6,7 +6,6 @@ require_once '../include/conf/const.php';
 require_once '../include/model/function.php';
 require_once '../include/model/entity.php';
 
-
 session_start();
 
 //sessionで保持するログインユーザー情報
@@ -25,10 +24,12 @@ if (!isset($_SESSION["user_id"])) {
   exit;
 }
 
-// エラーメッセージの初期化
-$errorMessage = "";
 
 $msg = new Message();
+$result = $msg -> msg_receive($user_id);
+
+// エラーメッセージの初期化
+$errorMessage = "";
 
 // ログインボタンが押された場合
 if (isset($_POST["title"])) {
@@ -45,10 +46,7 @@ if (isset($_POST["title"])) {
   );
 
   $result = $msg -> msg_send($user_id,$mt_user_id,$msg_array);
-
-
 }
-
 
 // 次画面に自分と予約相手のログインIDを渡す
 // ログイン状態を維持する

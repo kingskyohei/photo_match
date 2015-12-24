@@ -100,6 +100,25 @@
           </div>
     <!-- /.container -->
     </div>
+
+    <div class="container">
+     <h1>メッセージフォーム</h1>
+        <?php foreach($result as $row){ ?>
+
+            <div class="thumbnail">
+                <div class="caption-full">
+                    <h4><a href="#">通知内容</a>
+                    </h4>
+                    <p>相手ID：<?php echo $row['mt_user_id']; ?></p>
+                    <p>可否：<?php echo $row['title']; ?></p>
+                    <p>相手のページ：<?php echo $row['message']; ?></a></p>
+               </div>
+            </div>
+        <?php 
+        }
+        ?>
+
+    </div>
     <!-- jQuery -->
     <script src="../include/view/js/jquery.js"></script>
 

@@ -97,6 +97,20 @@
                 <?php 
                 }
                 ?>
+                
+                <?php foreach($result_photo as $row){ ?>
+
+                    <div class="thumbnail">
+                        <div class="caption-full">
+                            <h4><a href="#">写真一覧</a>
+                            </h4>
+                            <p>写真番号：<?php echo $row['photo_id']; ?></p>
+                            <p>写真URL：<?php echo $row['photo_url']; ?></p>
+                       </div>
+                    </div>
+                <?php 
+                }
+                ?>
 
 <!--
                 <div class="thumbnail">

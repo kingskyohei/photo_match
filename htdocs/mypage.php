@@ -22,6 +22,7 @@ if (!isset($_SESSION["user_id"])) {
   exit;
 }
 
+var_dump($user_id);
 // エラーメッセージの初期化
 $errorMessage = "";
 
@@ -33,7 +34,9 @@ if($user_kbn === "1"){
   try{
     // ユーザーマスタとToolテーブルから画面に表示するログインユーザーの情報を取得
     $result = $user_syubetu -> show_profile($user_id,$user_kbn);
-      
+
+    $result_photo = $user_syubetu -> show_photos($user_id);
+
     // 画面に表示するカメラマンのプロフィール情報(プロフィール、カメラ)を設定
     foreach($result as $row) {      
       //カメラマンのプロフィール情報
@@ -43,6 +46,9 @@ if($user_kbn === "1"){
       $camera_syurui_suryo = $row['camera_syurui_suryo'];
       $lens_syurui = $row['lens_syurui'];
     }
+
+
+
   }catch(Exception $e){
     print "エラー!: " . $e->getMessage() . "<br/>";
     die();
@@ -73,8 +79,7 @@ try{
     $yoyaku_class = new Yoyaku();
     // マッチテーブルから予約情報を取得
     $yoyaku = $yoyaku_class -> match_show($user_id);
-    // 画面に表示する予約情報
-    /*
+    // 画面に表示する予約情報 
       foreach($yoyaku as $row) {
         // 予約相手のID
         $mt_user_id = $row['mt_user_id'];
@@ -85,11 +90,13 @@ try{
         // 承認フラグ(申請許可=1 申請前/拒否=0)
         $flg = $row['syonin_flg'];
     }
-    */
   }catch(Exception $e){
     print "エラー!: " . $e->getMessage() . "<br/>";
     die();
   }
+
+
+
 
   // 次画面に自分と予約相手のログインIDを渡す
   // ログイン状態を維持する

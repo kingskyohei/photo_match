@@ -1,12 +1,6 @@
 <?php
 
 
-
-
-
-
-
-
 /**
  * ユーザーマスタクラス
  */
@@ -515,6 +509,23 @@ class Photo_Tbl_Access{
     return $rows;
 
   }
+
+  public function show_photos($user_id){
+
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    $prepare = $dbh->prepare('SELECT * FROM photo_table where user_id = :user_id');
+
+    $prepare->bindValue(':user_id', intval($user_id), PDO::PARAM_INT); 
+
+    $prepare->execute();
+
+    $result = $prepare->fetchAll();
+    
+    return $result;
+
+  }
+
 }
 
 
@@ -596,14 +607,18 @@ class Msg_Tbl_Access{
    * 
    * @return $result
    */
-  public function msg_receive($user_id,$mt_user_id,$message){
+  public function msg_receive($user_id){
 
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
     // 取得処理
-    // サムネイル一覧取得
-    $prepare = $dbh->prepare('SELECT * FROM message_table where user_id = :user_id ORDER BY :recieve_time DESC') -> fetchAll();
+    // メッセージ取得
+    $prepare = $dbh->prepare('SELECT * FROM message_table WHERE user_id = :user_id');
+
     $prepare->bindValue(':user_id', $user_id, PDO::PARAM_INT); 
-    $prepare->bindValue(':receive_time', $receive_time, PDO::PARAM_STR); 
+   
+    $prepare->execute();
+
+    $result = $prepare->fetchAll();
 
     if (!isset($result)) {
       throw new Exception('結果がありません');

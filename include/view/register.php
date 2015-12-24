@@ -15,7 +15,7 @@
             <div class="form-group">
               <label for="input-name" class="col-sm-2 control-label">お名前</label>
               <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="input-name" placeholder="お名前" required="required">
+                <input type="text" name="name" class="form-control" id="input-name" placeholder="お名前" required="required" value="<?php echo $user_name ?>">
               </div>
             </div>
             <div class="form-group">        
@@ -33,7 +33,7 @@
             <div class="form-group">
               <label for="input-mail" class="col-sm-2 control-label">ユーザーネーム</label>
               <div class="col-sm-10">
-                <input type="text" name="user_name" class="form-control" id="user_name" placeholder="ユーザーネーム" required="required">
+                <input type="text" name="user_name" class="form-control" id="user_name" placeholder="ユーザーネーム" required="required" value="<?php echo $user_name ?>">
               </div>
             </div>
             <div class="form-group">

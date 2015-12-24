@@ -1,5 +1,9 @@
 <?php
 
+
+
+
+
 /**
  * ユーザーマスタクラス
  */
@@ -72,6 +76,15 @@ class Cameraman extends User{
     return $profile_set;
     
   }
+
+  public function show_photos($user_id){
+    $photo = new Photo();
+
+    $result = $photo -> show_photos($user_id);
+
+    return $result;
+  }
+
 }
 
 class Profile{
@@ -80,7 +93,7 @@ class Profile{
 
   public function show_c_profile($user_id){
 
-      $profile=null;
+      $profile = null;
 
       /*ユーザーマスタにアクセス */
       $user = new User_Mst_Access();
@@ -91,12 +104,14 @@ class Profile{
       $tool_profile = $tool -> show_tool($user_id);
 
       /*フォトテーブルにアクセス*/
-
+      $photo = new Photo();
+      $photo_list = $photo -> show_photos($user_id);
       //var_dump($tool_profile);
       $profile_set = array_merge($profile,$tool_profile);
+      $profile_photo_set = array_merge($profile_set,$photo_list); 
 
       /*profile情報を配列にセット*/
-      return $profile_set;
+      return $profile_photo_set;
 
   }
   
@@ -146,7 +161,7 @@ class Profile{
 
     }
 
-}
+} 
 
   class Photo{
 
@@ -156,10 +171,12 @@ class Profile{
     //var_dump($user_id);   
 
     /* HTML特殊文字をエスケープする関数 */
+    /*
     function h($str) {
+
       return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     }
-
+*/
     try {
 
       /* アップロードがあったとき */
@@ -272,6 +289,17 @@ class Profile{
 
   }
 
+  public function show_photos($user_id){
+
+    $photo_list = new Photo_Tbl_Access();
+
+    $result = $photo_list -> show_photos($user_id);
+
+    return $result;
+
+
+  }
+
 }
 
   class Message{
@@ -283,6 +311,16 @@ class Profile{
       $msg = new Msg_Tbl_Access();
 
       $result = $msg -> msg_send($user_id,$mt_user_id,$msg_array);
+
+    return $result;
+
+    }
+
+    public function msg_receive($user_id){
+
+      $msg = new Msg_Tbl_Access();
+
+      $result = $msg -> msg_receive($user_id);
 
     return $result;
 

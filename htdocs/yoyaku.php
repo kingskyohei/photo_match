@@ -13,7 +13,7 @@ $mt_user_id = $_SESSION["mt_user_id"];
 
 
 
-var_dump();
+var_dump($_FILE['']);
 
 
 

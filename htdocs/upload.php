@@ -45,6 +45,7 @@ $rows = $photo -> show_photo($user_id);
 
 
 /* HTML特殊文字をエスケープする関数 */
+
 function h($str) {
     return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
 }

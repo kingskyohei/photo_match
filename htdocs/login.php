@@ -5,12 +5,40 @@ require_once '../include/conf/const.php';
 // 関数ファイル読み込み
 require_once '../include/model/function.php';
 
-// セッション開始
+//Facebook SDK for PHP の src/ にあるファイルを
+
+ // セッション開始
 session_start();
 
-// user_mstのインスタンス生成
-$user_mst_access = new User_Mst_Access();
 
+/* facebookログイン */
+//サーバ内の適当な場所にコピーしておく
+/*
+require_once("facebook/facebook.php");
+
+$config = array(
+    'appId'  => '1658042994475389',
+    'secret' => '3837b3a9b992c734346cd36e45c05922'
+);
+
+$facebook = new Facebook($config);
+
+$params = array('redirect_uri' => 'http://localhost/photo_match2/htdocs/mypage.php');
+$params = array('scope' => 'email');
+$loginUrl = $facebook->getLoginUrl($params);
+//$loginUrl = $facebook->getLoginUrl();
+$user = $facebook->api('/me', 'GET');
+
+
+
+echo '<a href="' . $loginUrl . '">Login with Facebook</a>';
+
+$userId = $facebook->getUser();
+
+
+// user_mstのインスタンス生成
+*/
+$user_mst_access = new User_Mst_Access();
 /*画面から入力したIDとパスワード*/
 $user_name = $_POST["user_name"];
 $password = $_POST["password"];
