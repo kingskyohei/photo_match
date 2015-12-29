@@ -8,36 +8,42 @@ require_once '../include/model/function.php';
 //Facebook SDK for PHP の src/ にあるファイルを
 
  // セッション開始
+require_once __DIR__ . '/vendor/autoload.php';
+ 
+//セッションを一旦消す
+//session_destroy();
+
 session_start();
+$_SESSION['facebook_access_token'] =null;
 
+$fb = new Facebook\Facebook([
+  'app_id' => '607604302712166',
+  'app_secret' => '35717e7bd645c484da39ff12a6c9ea8b',
+  'default_graph_version' => 'v2.4',
+  'default_access_token' => isset($_SESSION['facebook_access_token']) ? $_SESSION['facebook_access_token'] : '607604302712166|35717e7bd645c484da39ff12a6c9ea8b'
+]);
 
-/* facebookログイン */
-//サーバ内の適当な場所にコピーしておく
-/*
-require_once("facebook/facebook.php");
+try {
+  $response = $fb->get('/me?fields=id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name');
 
-$config = array(
-    'appId'  => '1658042994475389',
-    'secret' => '3837b3a9b992c734346cd36e45c05922'
-);
+  //var_dump($response);
+  $user = $response->getGraphUser();
+  echo 'Name: ' . $user['name'] .$user['email']. 'ID' .$user['id'] ;
+  //exit; //redirect, or do whatever you want
+} catch(Facebook\Exceptions\FacebookResponseException $e) {
+  //echo 'Graph returned an error: ' . $e->getMessage();
+} catch(Facebook\Exceptions\FacebookSDKException $e) {
+  //echo 'Facebook SDK returned an error: ' . $e->getMessage();
+}
+ 
+$helper = $fb->getRedirectLoginHelper();
+$permissions = ['email', 'user_likes'];
+$loginUrl = $helper->getLoginUrl('http://localhost/photo_match2/htdocs/login2.php', $permissions);
 
-$facebook = new Facebook($config);
-
-$params = array('redirect_uri' => 'http://localhost/photo_match2/htdocs/mypage.php');
-$params = array('scope' => 'email');
-$loginUrl = $facebook->getLoginUrl($params);
-//$loginUrl = $facebook->getLoginUrl();
-$user = $facebook->api('/me', 'GET');
-
-
-
-echo '<a href="' . $loginUrl . '">Login with Facebook</a>';
-
-$userId = $facebook->getUser();
 
 
 // user_mstのインスタンス生成
-*/
+
 $user_mst_access = new User_Mst_Access();
 /*画面から入力したIDとパスワード*/
 $user_name = $_POST["user_name"];

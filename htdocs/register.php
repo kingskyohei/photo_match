@@ -22,14 +22,48 @@ $fb = new Facebook\Facebook([
 $helper = $fb->getRedirectLoginHelper();
 
 $permissions = ['email', 'user_posts'];
-$callback = 'http://localhost/photo_match2/htdocs/register.php';
+$callback = 'http://localhost/photo_match2/htdocs/mypage.php';
 $loginUrl = $helper->getLoginUrl($callback, $permissions);
-//var_dump($loginUrl);
+
+var_dump($loginUrl);
+
+// 【code】を参照
+$code = $_REQUEST['code'];
+var_dump($code);
+// 【client_id】を参照
+$client_id = '...';
+// 【client_secret】を参照
+$client_secret = '...';
+// 【redirect_uri】を参照
+$redirect_uri = '...';
+
+////////// ↑ 解説を参照 //////////
+
+
+// アクセストークン取得用のURLを生成
+$token_url = 'https://graph.facebook.com/oauth/access_token' 
+           . '?client_id=' . $client_id
+           . '&redirect_uri=' . urlencode($redirect_uri) 
+           . '&client_secret=' . $client_secret
+           . '&code=' . $code;
+
+// アクセストークン取得
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, $token_url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+$token = curl_exec($ch);
+
+// アクセストークンを表示
+echo $token;
+
+
+
+
 //var_dump($helper -> getError());
 try {
 
   $accessToken = $helper->getAccessToken();
-  //var_dump($accessToken);
+  var_dump($access_token);
 
 } catch(Facebook\Exceptions\FacebookSDKException $e) {
   // There was an error communicating with Graph
@@ -40,7 +74,7 @@ try {
 if (isset($accessToken)) {
   // User authenticated your app!
   // Save the access token to a session and redirect
-  $_SESSION['facebook_access_token'] = (string) $accessToken;
+  $_SESSION['user_id'] = (string) $accessToken;
   // Log them into your web framework here . . .
   echo 'Successfully logged in!';
   exit;

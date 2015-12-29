@@ -36,8 +36,82 @@ img { vertical-align: middle; }
     margin: auto;
     padding: 103px 10px;
     width: 950px;
+}   
+
+/*!
+ * head_photo
+ */
+
+.head_photo{
+
+  width:950px;
+  height:480px;
+  margin:0 auto;
+  padding:0;
+  */
 }
 
+
+
+.h_sec1{
+  float:left;
+  width:550px;
+  height:400px;
+  position:relative;
+}
+
+.head_photo1{
+  margin-top:30px;
+  width:550px;
+  height:430px;
+
+}
+
+.kozu{
+  width:50px;
+  top :40px;
+  position:absolute;
+  right:30px;
+  text-align:center;
+  background-color:#fff;
+}
+
+.h_sec2{
+  float:right;
+  width:380px;
+  height:200px;
+  background-color:white;
+  margin-top:30px;
+  position:relative;
+}
+
+.head_photo2{
+  width:380px;
+  height:200px;
+}
+
+.h_sec3{
+  float:right;
+  width:380px;
+  height:200px;
+  background-color:white;
+  margin-top:20px;
+  position:relative;
+}
+
+.head_photo3{
+  width:380px;
+  height:200px;
+}
+
+.profile{
+  width:100px;
+  top :10px;
+  position:absolute;
+  right:30px;
+  text-align:center;
+  background-color:#fff;
+}
 
 /*!
  * Gallery

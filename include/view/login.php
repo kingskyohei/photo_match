@@ -21,7 +21,7 @@
         }
       });
       e.preventDefault();
-	});
+	  });
   });
   </script>
 
@@ -151,17 +151,20 @@
   <h3 class="log_in" >ログイン</h3>
   <form id="loginForm" name="loginForm" action="./login.php" method="POST">
     <div class="form-item">
-	  <label for="user_name"></label>
-	  <input type="text" class="user_id" name="user_name" required="required" placeholder="User ID" value="<?php echo htmlspecialchars($_POST["user_name"], ENT_QUOTES); ?>"></input>
-	</div>
-	<div class="form-item">
-	  <label for="password"></label>
-	  <input type="password" name="password" required="required" placeholder="Password" value=""></input>
-	</div>
-	<div class="button-panel">
+	    <label for="user_name"></label>
+	    <input type="text" class="user_id" name="user_name" required="required" placeholder="User ID" value="<?php echo htmlspecialchars($_POST["user_name"], ENT_QUOTES); ?>"></input>
+	  </div>
+	  <div class="form-item">
+	    <label for="password"></label>
+	    <input type="password" name="password" required="required" placeholder="Password" value=""></input>
+	  </div>
+	  <div class="button-panel">
       <input type="submit" id="login" class="login" title="ログイン" value="ログイン"></input>
     </div>
-    <!--<a class="close" id="cancel" href="#">キャンセル</a> -->
+    <div class="button-panel">
+      <a href="#" class="tw_button_link"><img class="tw_login_img" src="../include/view/images/tw_button.jpeg" alt="twitterログイン"></a>
+      <a href="<?php echo $loginUrl ?>" class="fb_button_link"><img class="fb_login_img" src="../include/view/images/fb_button.png" alt="facebookログイン"></a>
+    </div>
   </form>
 </div>
 </body>

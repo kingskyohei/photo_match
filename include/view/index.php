@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../include/view/css/normalize.css">
 <link rel="stylesheet" href="../include/view/css/colorbox.css">
 <link rel="stylesheet" href="../include/view/css/main.css">
-
+<link rel="stylesheet" href="../include/view/css/bootstrap-datepicker.css">
 <script src="../include/view/js/vendor/modernizr.custom.min.js"></script>
 <script src="../include/view/js/vendor/jquery-1.10.2.min.js"></script>
 <script src="../include/view/js/vendor/jquery-ui-1.10.3.custom.min.js"></script>
@@ -16,27 +16,24 @@
 <script src="../include/view/js/vendor/masonry.pkgd.min.js"></script>
 <script src="../include/view/js/vendor/jquery.colorbox-min.js"></script>
 <script src="../include/view/js/main.js"></script>
+<script src="../include/view/js/bootstrap-datepicker.js"></script>
+<script src="../include/view/js/bootstrap-datepicker.ja.js"></script>
 <script>
 	$(document).ready(function(){
-
 		$(".design").colorbox({
 			rel:'design'
 		});
-
 		$(".inline").colorbox({
 			rel:'group',
 			inline: true
 		});
-
 		$(".close_demo").colorbox({
 			inline: true
 		});
-
 		$(".close_demo2").colorbox({
 			inline: true,
 			returnFocus:false
 		});
-
 		$('.close').on('click', function(e){
 			e.preventDefault();
 			$.colorbox.close();
@@ -46,63 +43,68 @@
 			e.preventDefault();
 			$.colorbox.close();
 		});
-
 		$('.close2').on('click', function(e){
 			e.preventDefault();
 			$.colorbox.close();
-
 			var position = $('#anchor_demo').offset().top;
 			window.scrollTo(0,position);
 		});
-
 	});
-
 </script>
 </head>
 <body>
 
 <header class="page-header" role="banner">
     <div class="inner clearfix">
-        <h1 class="site-logo"><a href="./"><img src="../include/view/img/logo.png" alt="Shiftbrain" height="21" width="169"></a></h1>
+        <h1 class="site-logo"><a href="./"><img src="../include/view/images/logo.png" alt="modelsearch" height="21" width="200"></a></h1>
         <form class="filter-form" id="gallery-filter">
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-all" value="all" checked>
-                <label for="filter-all">All</label>
+                <label for="filter-all">ALL</label>
             </span>
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-people" value="people">
-                <label for="filter-people">People</label>
+                <label for="filter-people">スタジオ撮影</label>
             </span>
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-animals" value="animals">
-                <label for="filter-animals">Animals</label>
+                <label for="filter-animals">屋外撮影</label>
             </span>
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-nature" value="nature">
-                <label for="filter-nature">Nature</label>
+                <label for="filter-nature">夜景</label>
             </span>
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-plantes" value="plantes">
-                <label for="filter-plantes">Plantes</label>
+                <label for="filter-plantes">ファッション撮影</label>
             </span>
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-architects" value="architects">
-                <label for="filter-architects">Architects</label>
+                <label for="filter-architects">アート撮影</label>
             </span>
         </form>
     </div>
 </header>
-<!--
-<div id="section03" class="section">
-	<h2>別のJavaScriptからColorBoxの操作を行う</h2>
-	<p class="btn" style="margin-bottom:40px;"><a class="close_demo" href="#inline03">モーダル内のボタンでColorboxを閉じる。</a></p>
-	<p class="btn"><a class="close_demo" href="#inline04">アンカーリンクで移動してからColorboxを閉じる その1</a></p>
-</div>
--->
+
 <div class="page-main" role="main">
-    <ul class="gallery" id="gallery"></ul>
+	<ul class="head_photo" id="head_photo">
+		<div class="h_sec1">
+			<a><img class="head_photo1" src="../include/view/images/bg1.jpg" alt="制作事例1"></a>
+			<div class="kozu"><a href="#">構図</a></div>
+		</div>
+		<div class="h_sec2">
+			<a><img class="head_photo2" src="../include/view/images/bg_c.jpg" alt="制作事例2"></a>
+			<div class="profile"><a href="./profile.php?user_id=2">プロフィール</a></div>
+		</div>
+		<div class="h_sec3">
+			<a><img class="head_photo3" src="../include/view/images/bg_m.jpg" alt="制作事例3"></a>
+			<div class="profile"><a href="./profile.php?user_id=4">プロフィール</a></div>
+		</div>
+	</ul>
+
+    <ul class="gallery clearfix" id="gallery"></ul>
     <button class="load-more" id="load-more">Load more</button>
-</div>
+</div>		
 
 <div style="display:none">
 

@@ -1,14 +1,32 @@
 $(function () {
+    /*
+     * ヘッダー
+     */
+    $('.kozu a').on('mouseenter', function(){
+        $('.head_photo1').attr('src',"../include/view/images/kozu.png");
+    });
 
+    $('.kozu a').on('mouseleave', function(){
+/*
+          var file_name = .attr('src').split('/').pop();
+
+          var file_name_s = file_name.replace(/.jpg/g,"");
+
+          selectedSrc = file_name_s.replace(/thumb/g,"large");
+
+          selectedSrc_o = selectedSrc + '.jpg';
+*/
+          $('.head_photo1').attr('src',"../include/view/images/bg1.jpg");
+    });
     /*
      * ギャラリー
      */
     $('#gallery').each(function () {
-
+        /* 兵庫 */ 
         var $container = $(this),
             $loadMoreButton = $('#load-more'), // 追加ボタン
             $filter = $('#gallery-filter'),    // フィルタリングのフォーム
-            addItemCount = 16,                 // 一度に表示するアイテム数
+            addItemCount = 16,                    // 一度に表示するアイテム数
             addedd = 0,                        // 表示済みのアイテム数
             allData = [],                      // すべての JSON データ
             filteredData = [];                 // フィルタリングされた JSON データ
@@ -40,10 +58,18 @@ $(function () {
             // フィルターのラジオボタンが変更されたらフィルタリングを実行
             $filter.on('change', 'input[type="radio"]', filterItems);
 
-// 06-04 に追加
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+            // 06-04 に追加
+            // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
             // アイテムのリンクにホバーエフェクト処理を登録
-            $container.on('mouseenter mouseleave', '.gallery-item a', hoverDirection);
+            $container.on('mouseenter mouseleave', '.gallery-item a', headDisp);
+            //$container.on('mouseenter mouseleave', '.gallery-item a', headDisp);
+            
+            //評点
+            //$container.on('mouseenter mouseleave', '.gallery-itme a', headDisp);
+            
+            //$container.on('mouseenter mouseleave', '.gallery-itme a', headDisp);
+
+
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         }
 
@@ -115,8 +141,8 @@ $(function () {
         function filterItems () {
             var key = $(this).val(), // チェックされたラジオボタンの value
 
-                // 追加済みの Masonry アイテム
-                masonryItems = $container.masonry('getItemElements');
+            // 追加済みの Masonry アイテム
+            masonryItems = $container.masonry('getItemElements');
 
             // Masonry アイテムを削除
             $container.masonry('remove', masonryItems);
@@ -143,7 +169,10 @@ $(function () {
 // 06-04 に追加
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
         // ホバーエフェクト
-        function hoverDirection (event) {
+        //function hoverhead (event) {
+        //    console.log('bbb');
+
+        /*
             var $overlay = $(this).find('.caption'),
                 side = getMouseDirection(event),
                 animateTo,
@@ -167,10 +196,12 @@ $(function () {
                 animateTo = positionOut;
             }
             $overlay.stop(true).animate(animateTo, 250, 'easeOutExpo');
-        }
+            */
+        //}
 
         // マウスの方向を検出する関数
         // http://stackoverflow.com/a/3647634
+        /*
         function getMouseDirection (event) {
             var $el = $(event.currentTarget),
                 offset = $el.offset(),
@@ -181,8 +212,49 @@ $(function () {
                 direction = Math.round((Math.atan2(y, x) * (180 / Math.PI) + 180) / 90  + 3) % 4;
             return direction;
         }
-    });
+        */
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+        // ホバーエフェクト
+        function headDisp(event){
+
+          // マウスオーバーした写真のファイル名を取得
+          var file_name = $(this).children().attr('src').split('/').pop();
+
+          var file_name_s = file_name.replace(/.jpg/g,"");
+
+/*
+
+          // マウスオーバーした写真のファイル名を取得
+          var selectedSrc_t = $(this).children().attr('src').split('/').pop();
+
+          //「/」で区切って配列化
+          var pathinfo = path.split('/');
+          //最後の要素（ファイル名）だけ抜き出し
+          var filename = pathinfo.pop();
+
+          //console.log(pathinfo);
+          //console.log(filename);
+*/
+
+          selectedSrc = file_name_s.replace(/thumb/g,"large");
+          selectedSrc_o = selectedSrc + '.jpg';
+          selectedSrc_m = selectedSrc + '_m.jpg';
+          selectedSrc_c = selectedSrc + '_c.jpg';
+          console.log(selectedSrc_o);
+          console.log(selectedSrc_m);
+          console.log(selectedSrc_c);
+          //console.log(selectedSrc_o);
+          //console.log(selectedSrc_m);
+          //console.log(selectedSrc_c);
+          // TOP写真をマウスオーバーした写真で入れ替える
+          $('.head_photo1').attr('src',"../include/view/img/" + selectedSrc_o);
+          $('.head_photo2').attr('src',"../include/view/img/" + selectedSrc_m);
+          $('.head_photo3').attr('src',"../include/view/img/" + selectedSrc_c);
+          // console.log(selt);
+        }
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+    });
 
     // jQuery UI Button
     $('.filter-form input[type="radio"]').button({
@@ -221,5 +293,4 @@ $(function () {
             $header.css(styles);
         }));
     });
-
 });

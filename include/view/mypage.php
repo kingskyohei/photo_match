@@ -81,12 +81,7 @@
             </div>
 
             <div class="col-md-9">
-
-
-
         <!-- <?php debug($memo); ?> デバッグ-->
-
-
                 <?php foreach($yoyaku as $row){
                     foreach($row as $row2){
                     } ?>
@@ -95,7 +90,17 @@
                             <h4><a href="#">通知内容</a>
                             </h4>
                             <p>予約番号：<?php echo $row2['yoyaku_id']; ?></p>
-                            <p>可否：<?php echo $row2['syonin_flg']; ?></p>
+                            <form method="post">
+                              <?php if ($row2['syonin_flg'] === '1') { ?>
+                                <td><input type="submit" value="公開 → 非公開"></td>
+                                <input type="hidden" name="change_status" value="0">
+                              <?php } else { ?>
+                                <td><input type="submit" value="非公開 → 公開"></td>
+                                <input type="hidden" name="change_status" value="1">
+                                <input type="hidden" name="yoyaku_id" value="<?php echo $row2['yoyaku_id']; ?>">
+                              <?php } ?>
+                                <input type="hidden" name="sql_kind" value="change">
+                            </form>
                             <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $row2['mt_user_id']; ?></a></p>
                        </div>
                     </div>

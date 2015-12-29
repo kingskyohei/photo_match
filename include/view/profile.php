@@ -7,6 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
 <meta name="author" content="">
+<link rel="stylesheet" href="../include/view/css/bootstrap-datepicker.css">
+<link rel="stylesheet" href="../include/view/css/bootstrap-timepicker.css">
 <link href='../include/view/css/bootstrap.min.css' rel='stylesheet' />
 <link href='../include/view/css/blog-post.css' rel='stylesheet' />
 <link href='../include/view/js/fullcalendar.css' rel='stylesheet' />
@@ -15,6 +17,23 @@
 <script src="../include/view/js/moment.js"></script>
 <script src="../include/view/js/fullcalendar.js"></script>
 <script src="../include/view/js/bootstrap.min.js"></script>
+<script src="../include/view/js/bootstrap-datepicker.js"></script>
+<script src="../include/view/js/bootstrap-datepicker.ja.js"></script>
+<script src="../include/view/js/bootstrap-timepicker.js"></script>
+<script src="../include/view/js/bootstrap-timepicker.ja.js"></script>
+<script type="text/javascript">
+$(function() {
+    $('.set_time').timepicker({});
+});
+</script>
+<script type="text/javascript">
+$(function() {
+    $('.set_date').datepicker({
+        format: 'yyyy/mm/dd',
+        language: 'ja'
+    });
+});
+</script>
 <script type="text/javascript">
 $(document).ready(function () {
     // Documentの読み込みが完了するまで待機し、カレンダーを初期化します。
@@ -182,7 +201,7 @@ $(document).ready(function () {
                     <a href="logout.php">ログアウト</a>
                 </li>
                 <li>
-                    <a href=""><p>ようこそ<?php echo $user_name ?>さん</p></a>
+                    <a href="./mypage.php"><p>ようこそ<?php echo $user_name ?>さん</p></a>
                 </li>
             </ul>
         </div>
@@ -287,7 +306,7 @@ $(document).ready(function () {
             <!-- Blog Categories Well -->
             <div class="mt60"></div>
             <div class="well">
-                <h4>スケジュール</h4>
+                <h4><a href="./schedule.php">スケジュール</a></h4>
       			<div id='calendar' class="calendar"></div>
             </div>
                 <!-- /.row -->
@@ -296,12 +315,12 @@ $(document).ready(function () {
                 <div class="request">
                     <p class="subtitle">・希望の日程は？</p>
                     <hr>
-                    <p class="set_time">開始日程：<input name="start_time" type="text" value=""></p>
-                    <p class="set_time">終了日程：<input name="end_time" type="text" value=""></p>
+                    <p class="set_date_label">開始日程：<input class="set_date" name="start_time" type="text" value=""></p>
+                    <p class="set_date_label">終了日程：<input class="set_date" name="end_time" type="text" value=""></p>
                     <p class="subtitle">・希望の時間帯は？</p>
                     <hr>
-                    <p class="set_time">開始時間：<input name="start_time" type="text" value=""></p>
-                    <p class="set_time">終了時間：<input name="end_time" type="text" value=""></p>
+                    <p class="set_time_label">開始時間：<input class="set_time" name="start_time" type="text" value=""></p>
+                    <p class="set_time_label">終了時間：<input class="set_time" name="end_time" type="text" value=""></p>
                     <p>ご希望の時間を選択してください</p>
                     <p class="subtitle">・希望料金</p>
                     <hr>

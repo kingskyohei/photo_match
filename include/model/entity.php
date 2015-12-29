@@ -133,7 +133,7 @@ class Profile{
 
     public function match_show($user_id){
 
-      $match = new Match_Tbl_Access;
+      $match = new Match_Tbl_Access();
 
       $result = $match -> match_show($user_id);
 
@@ -143,13 +143,22 @@ class Profile{
 
     public function yoyaku_insert($user_id,$mt_user_id,$yoyaku_info_list){
 
-      $yoyaku = new Yoyaku_Tbl_Access;
+      $yoyaku = new Yoyaku_Tbl_Access();
 
       $result = $yoyaku -> yoyaku_insert($user_id, $mt_user_id, $yoyaku_info_list);
 
       return $result;
 
     }
+
+    public function yoyaku_update($status,$yoyaku_id){
+
+      $yoyaku = new Yoyaku_Tbl_Access();
+
+      $result = $yoyaku -> yoyaku_update($status,$yoyaku_id);
+
+    }
+
 }
 
   class Album{

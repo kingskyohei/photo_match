@@ -90,7 +90,17 @@
                             <h4><a href="#">通知内容</a>
                             </h4>
                             <p>予約番号：<?php echo $row['yoyaku_id']; ?></p>
-                            <p>可否：<?php echo $row['syonin_flg']; ?></p>
+                            <form method="post">
+                              <?php if ($row['syonin_flg'] === '1') { ?>
+                                <td><input type="submit" value="承認 → 非承認"></td>
+                                <input type="hidden" name="change_status" value="0">
+                              <?php } else { ?>
+                                <td><input type="submit" value="非承認 → 承認"></td>
+                                <input type="hidden" name="change_status" value="1">
+                                <input type="hidden" name="yoyaku_id" value="<?php echo $row['yoyaku_id']; ?>">
+                              <?php } ?>
+                                <input type="hidden" name="sql_kind" value="change">
+                            </form>
                             <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $row['mt_user_id']; ?></a></p>
                        </div>
                     </div>

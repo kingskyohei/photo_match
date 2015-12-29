@@ -251,9 +251,26 @@ class Yoyaku_Tbl_Access{
     }else{
       return $result;
     }
-    
     //$dbh = null;
+  }
 
+  /*承認された予約番号の承認フラグを1にする */
+  public function yoyaku_update($status,$yoyaku_id){
+
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+    
+    //予約番号の承認フラグを1にする
+    $prepare = $dbh->prepare('update yoyaku_table set syonin_flg = :syonin_flg WHERE yoyaku_id = :yoyaku_id');
+
+    $prepare->bindValue(':yoyaku_id', $yoyaku_id, PDO::PARAM_STR); 
+    $prepare->bindValue(':syonin_flg', $status, PDO::PARAM_INT); 
+    $result = $prepare->execute();
+
+    //マッチテーブルに予約情報を挿入する処理をいれてください
+
+    return $result;
+
+   
   }
 
 }

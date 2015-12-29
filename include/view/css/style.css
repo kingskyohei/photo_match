@@ -319,6 +319,17 @@ input{
   color:#000;
 }
 
+.tw_login_img{
+  width:175px;
+  height:42px;
+}
+
+.fb_login_img{
+  width:175px;
+  height:45px;
+}
+
+
 #sign_up h1 {
   text-align: center;
   padding: 1em 0;
