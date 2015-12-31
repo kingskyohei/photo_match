@@ -1,11 +1,9 @@
 <?php
 
-
-
-
-
 /**
  * ユーザーマスタクラス
+ * モデルクラス、カメラマンクラスのスーパークラス
+ * ユーザーが使用できる機能を定義
  */
 class User{
   //設定
@@ -19,12 +17,26 @@ class User{
     $user_id = null;
   }
 
-
+  /**
+   * 指定したユーザのプロフィールを表示します。
+   *
+   * @param int $user_id ユーザーID
+   * @param string $kbn 区分
+   * @return プロフィール情報
+   */
   public function show_profile($user_id,$kbn){
 
     return $profile;
   }
 
+  /**
+   * 指定したユーザを新規登録します。
+   *
+   * @param string $user_name ユーザー名
+   * @param string $password パスワード
+   * @param array $register_info_array 登録情報
+   * @return 結果成否
+   */
   public function register($user_name,$password,$register_info_array){
     // user_mstのインスタンス生成
     $user_mst_access = new User_Mst_Access();
@@ -35,7 +47,10 @@ class User{
   }
 }
  
-
+/**
+ * モデルクラス
+ * モデルが使用できる機能の詳細を定義
+ */
 class Model extends User{
 
   private $user_id;
@@ -46,9 +61,14 @@ class Model extends User{
     $user_kbn = null;
   }
 
+  /**
+   * モデルのプロフィール表示処理
+   *
+   * @param string $user_id ユーザーID
+   * @param string $user_kbn ユーザー区分
+   * @return プロフィール情報
+   */
   public function show_profile($user_id,$user_kbn){
-
-    
     $profile = new Profile();
     $profile_set = $profile -> show_m_profile($user_id);
     //var_dump($profile_set);
@@ -58,7 +78,10 @@ class Model extends User{
 
 }
 
-
+/**
+ * カメラマンクラス
+ * カメラマンが使用できる機能の詳細を定義
+ */
 class Cameraman extends User{
 
   private $user_id;
@@ -69,6 +92,13 @@ class Cameraman extends User{
     $user_kbn = null;
   }
 
+  /**
+   * カメラマンのプロフィール表示処理
+   *
+   * @param string $user_id ユーザーID
+   * @param string $user_kbn ユーザー区分
+   * @return プロフィール情報
+   */
   public function show_profile($user_id,$user_kbn){
     $profile = new Profile();
     $profile_set = $profile -> show_c_profile($user_id);
@@ -77,6 +107,12 @@ class Cameraman extends User{
     
   }
 
+  /**
+   * カメラマンの写真表示処理
+   *
+   * @param string $user_id ユーザーID
+   * @return 写真情報
+   */
   public function show_photos($user_id){
     $photo = new Photo();
 
@@ -87,10 +123,20 @@ class Cameraman extends User{
 
 }
 
+/**
+ * プロフィールクラス
+ * プロフィール情報に関するユーザー種別ごとの処理を定義
+ */
 class Profile{
   
   private $user_id;
 
+  /**
+   * カメラマンの写真表示処理
+   *
+   * @param string $user_id ユーザーID
+   * @return プロフィール情報
+   */
   public function show_c_profile($user_id){
 
       $profile = null;
@@ -98,23 +144,30 @@ class Profile{
       /*ユーザーマスタにアクセス */
       $user = new User_Mst_Access();
       $profile = $user ->show_profile($user_id);
-
+      //var_dump($profile);
       /*ツールテーブルにアクセス */
-      $tool = new Tool_Tbl_Access();
-      $tool_profile = $tool -> show_tool($user_id);
-
-      /*フォトテーブルにアクセス*/
-      $photo = new Photo();
-      $photo_list = $photo -> show_photos($user_id);
+      //$tool = new Tool_Tbl_Access();
+      //$tool_profile = $tool -> show_tool($user_id);
       //var_dump($tool_profile);
-      $profile_set = array_merge($profile,$tool_profile);
-      $profile_photo_set = array_merge($profile_set,$photo_list); 
-
+      /*フォトテーブルにアクセス*/
+      //$photo = new Photo();
+      //$photo_list = $photo -> show_photos($user_id);
+      //var_dump($tool_profile);
+      //$profile_set = array_merge($profile,$tool_profile);
+      //$profile_photo_set = array_merge($profile_set,$photo_list); 
+      //var_dump($profile_photo_set);
       /*profile情報を配列にセット*/
-      return $profile_photo_set;
+      //var_dump($profile_set);
+      return $profile;
 
   }
-  
+
+   /**
+   * モデルのプロフィール表示処理
+   *
+   * @param string $user_id ユーザーID
+   * @return プロフィール情報
+   */
   public function show_m_profile($user_id){
       
       $profile = null;
@@ -127,21 +180,37 @@ class Profile{
   }
 }
 
+/**
+ * 予約情報クラス
+ * 予約情報に関する処理を定義
+ */
   class Yoyaku{
 
-    //private $user_id;
-
+   /**
+   * モデルのプロフィール表示処理
+   *
+   * @param string $user_id ユーザーID
+   * @return プロフィール情報
+   */
     public function match_show($user_id){
 
-      $match = new Match_Tbl_Access();
+      $match = new Yoyaku_Tbl_Access();
 
-      $result = $match -> match_show($user_id);
+      $result = $match -> yoyaku_show($user_id);
 
       return $result;
 
     }
 
-    public function yoyaku_insert($user_id,$mt_user_id,$yoyaku_info_list){
+   /**
+   * モデルのプロフィール表示処理
+   *
+   * @param string $user_id ユーザーID
+   * @param string $mt_user_id 相手ユーザーID
+   * @param array $yoyaku_info_list 予約情報
+   * @return プロフィール情報
+   */
+    public function yoyaku_insert($user_id, $mt_user_id, $yoyaku_info_list){
 
       $yoyaku = new Yoyaku_Tbl_Access();
 
@@ -151,6 +220,13 @@ class Profile{
 
     }
 
+   /**
+   * モデルのプロフィール表示処理
+   *
+   * @param string $status ユーザーID
+   * @param string $yoyaku_id 予約ID
+   * @return プロフィール情報
+   */
     public function yoyaku_update($status,$yoyaku_id){
 
       $yoyaku = new Yoyaku_Tbl_Access();
@@ -159,19 +235,44 @@ class Profile{
 
     }
 
+
+   /**
+   * モデルのプロフィール表示処理
+   *
+   * @param string $yoyaku_id 予約ID
+   * @return プロフィール情報
+   */
+    public function match_insert($yoyaku_id){
+
+      $match = new Match_Tbl_Access();
+
+      $match -> match_insert($yoyaku_id);
+    }
+
 }
 
+/**
+ *　アルバムクラス
+ * 
+ * @param string $user_id ユーザーID
+ * @return プロフィール情報
+ */
   class Album{
 
     private $album_id;
 
     public function create_album($user_id){
 
-
     }
 
 } 
 
+/**
+ *　写真クラス
+ * 
+ * @param string $user_id ユーザーID
+ * @return プロフィール情報
+ */
   class Photo{
 
     private $photo_id;
@@ -185,7 +286,7 @@ class Profile{
 
       return htmlspecialchars($str, ENT_QUOTES, 'UTF-8');
     }
-*/
+    */
     try {
 
       /* アップロードがあったとき */
@@ -285,9 +386,14 @@ class Profile{
     }catch(Exception $e){
 
     }
-  return $obs;
+    return $obs;
   }
 
+/**
+ *　写真クラス
+ * @param string $user_id ユーザーID
+ * @return プロフィール情報
+ */
   public function show_photo($user_id){
 
     $photo_list = new Photo_Tbl_Access();
@@ -298,6 +404,11 @@ class Profile{
 
   }
 
+/**
+ *　写真クラス
+ * @param string $user_id ユーザーID
+ * @return プロフィール情報
+ */
   public function show_photos($user_id){
 
     $photo_list = new Photo_Tbl_Access();
@@ -306,15 +417,25 @@ class Profile{
 
     return $result;
 
-
   }
 
 }
 
+/**
+ *　メッセージクラス
+ * 
+ * @return プロフィール情報
+ */
   class Message{
 
     private $user_id;
 
+  /**
+   * @param string $user_id ユーザーID
+   * @param string $mt_user_id 相手ユーザーID
+   * @param string $msg_array
+   * @return 
+   */
     public function msg_send($user_id,$mt_user_id,$msg_array){
 
       $msg = new Msg_Tbl_Access();
@@ -325,6 +446,11 @@ class Profile{
 
     }
 
+  /**
+   * @param string $user_id ユーザーID
+   * @return $result
+   * 
+   */
     public function msg_receive($user_id){
 
       $msg = new Msg_Tbl_Access();

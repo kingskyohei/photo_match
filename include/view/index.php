@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="../include/view/css/normalize.css">
 <link rel="stylesheet" href="../include/view/css/colorbox.css">
 <link rel="stylesheet" href="../include/view/css/main.css">
-<link rel="stylesheet" href="../include/view/css/bootstrap-datepicker.css">
+
 <script src="../include/view/js/vendor/modernizr.custom.min.js"></script>
 <script src="../include/view/js/vendor/jquery-1.10.2.min.js"></script>
 <script src="../include/view/js/vendor/jquery-ui-1.10.3.custom.min.js"></script>
@@ -16,8 +16,7 @@
 <script src="../include/view/js/vendor/masonry.pkgd.min.js"></script>
 <script src="../include/view/js/vendor/jquery.colorbox-min.js"></script>
 <script src="../include/view/js/main.js"></script>
-<script src="../include/view/js/bootstrap-datepicker.js"></script>
-<script src="../include/view/js/bootstrap-datepicker.ja.js"></script>
+
 <script>
 	$(document).ready(function(){
 		$(".design").colorbox({

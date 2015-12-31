@@ -22,7 +22,6 @@ $user_name = $_SESSION["user_name"];
 $mt_user_id = $_SESSION["mt_user_id"];
 $mt_user_kbn = $_SESSION["mt_user_kbn"];
 
-
 $user_id = $_GET["user_id"];
 
 //var_dump($mt_user_id);

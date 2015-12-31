@@ -11,9 +11,17 @@ require_once '../include/model/function.php';
 $user_id = $_SESSION["user_id"];
 $mt_user_id = $_SESSION["mt_user_id"];
 
+$start_date = $_POST['start_date'];
+$end_date = $_POST['end_date'];
 
+$year = substr($start_date,0,4);
+$month = substr($start_date,5,2);
+$date = substr($start_date,8,2);
 
-var_dump($_FILE['']);
+$start_time = $_POST['start_time'];
+$end_time = $_POST['end_time'];
+
+$hour = $end_time - $start_time;
 
 
 

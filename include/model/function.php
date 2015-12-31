@@ -1,8 +1,8 @@
 <?php
 
-
 /**
  * ユーザーマスタクラス
+ * モデル、カメラマンのプロフィール情報を格納するユーザーマスタへのCRUDを定義
  */
 class User_Mst_Access{
   //設定
@@ -16,6 +16,7 @@ class User_Mst_Access{
 
   /**
    * コンストラクタ
+   *　DB接続情報
    */
   function __construct(){
     $this->dbh = new PDO(
@@ -26,7 +27,7 @@ class User_Mst_Access{
     session_start();
   }
 
-  //ハッシュ化
+  //パスワードのハッシュ化
   private function hash($password){
     return md5($password . self::SALT);
   }
@@ -36,10 +37,12 @@ class User_Mst_Access{
    *
    * @param string $username ユーザ名
    * @param string $password パスワード
+   *　@param　array $register_info_array 登録情報
    *
    * @return 成功したかどうか
    */
   public function register($user_name, $password,$register_info_array){
+    //DB接続情報
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
     //ユーザーネーム
     $ins_user_name = $user_name;
@@ -58,7 +61,8 @@ class User_Mst_Access{
     $prepare->bindValue(':mail',$ins_mail,PDO::PARAM_STR);
     $prepare->bindValue(':user_name',$ins_user_name,PDO::PARAM_STR);
     $prepare->bindValue(':password',$ins_password,PDO::PARAM_STR);
-    //成功したらtrue
+
+    //成功したらtrueを返す
     return $prepare->execute();
   }
 
@@ -110,7 +114,7 @@ class User_Mst_Access{
 
 
  /**
-   * 指定したユーザを新規登録します。
+   * プロフィール情報の表示
    *
    * @param int user_id ユーザID
    * 
@@ -128,6 +132,8 @@ class User_Mst_Access{
     $prepare->execute();
 
     $result = $prepare->fetchAll();
+
+    //var_dump($result);  
  
 
     if (!isset($result)) {
@@ -147,11 +153,9 @@ class User_Mst_Access{
   }
 }
 
-
-
-
 /**
  * 予約テーブルクラス
+ *　ユーザー同士の予約情報を格納する予約テーブルへのCRUDを定義
  */
 class Yoyaku_Tbl_Access{
   //設定
@@ -174,19 +178,21 @@ class Yoyaku_Tbl_Access{
   }
 
   /**
-   * 指定したユーザを新規登録します。
+   * 予約を登録する
    *
    * @param string $username ユーザ名
    * @param string $password パスワード
+   * @param array $yoyaku_info_list 予約情報
    *
    * @return 成功したかどうか
    */
-  public function yoyaku_insert($user_id, $mt_user_id,$yoyaku_info_list){
+  public function yoyaku_insert($user_id, $mt_user_id, $yoyaku_info_list){
+    // DB接続情報
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
     // ユーザーID
     $ins_user_id = $user_id;
     // 予約相手のユーザーID
-    $ins_mt_user_id = $mt_user_id;  
+    $ins_mt_user_id = $mt_user_id; 
     // タイトル
     $ins_title = $yoyaku_info_list['title'];
     // コンテント
@@ -221,13 +227,14 @@ class Yoyaku_Tbl_Access{
     $prepare->bindValue(':start_time',$ins_start_time,PDO::PARAM_STR);
     $prepare->bindValue(':end_time',$ins_end_time,PDO::PARAM_STR);
     $prepare->bindValue(':hour',$ins_hour,PDO::PARAM_STR);
+
     //insertを実行
     return $prepare -> execute();
 
   }
 
  /**
-   * 指定したユーザを新規登録します。
+   * ユーザーに紐づく予約情報を表示する
    *
    * @param int user_id ユーザID
    * 
@@ -237,7 +244,7 @@ class Yoyaku_Tbl_Access{
 
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
 
-    $prepare = $dbh->prepare('SELECT * FROM yoyaku_table WHERE user_id = :user_id');
+    $prepare = $dbh->prepare('SELECT * FROM yoyaku_table WHERE user_id = :user_id and syonin_flg = 0 ');
 
     $prepare->bindValue(':user_id', $user_id, PDO::PARAM_INT); 
 
@@ -254,7 +261,13 @@ class Yoyaku_Tbl_Access{
     //$dbh = null;
   }
 
-  /*承認された予約番号の承認フラグを1にする */
+ /**
+   * 承認された予約の承認フラグを更新する
+   *
+   * @param int status 承認フラグの値
+   *　@param  int yoyaku_id 予約ID
+   * @return $result(user_mstの登録情報)
+   */
   public function yoyaku_update($status,$yoyaku_id){
 
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
@@ -264,19 +277,17 @@ class Yoyaku_Tbl_Access{
 
     $prepare->bindValue(':yoyaku_id', $yoyaku_id, PDO::PARAM_STR); 
     $prepare->bindValue(':syonin_flg', $status, PDO::PARAM_INT); 
+
     $result = $prepare->execute();
-
-    //マッチテーブルに予約情報を挿入する処理をいれてください
-
     return $result;
 
-   
   }
 
 }
 
 /**
- * ツールテーブルクラス
+ * カメラ道具テーブルクラス
+ *　カメラマンの所有するカメラやレンズの情報を格納するカメラ道具テーブルへのCRUDを定義
  */
 class Tool_Tbl_Access{
   //設定
@@ -299,6 +310,12 @@ class Tool_Tbl_Access{
     );
   }
 
+ /**
+   * カメラマンの道具を表示する
+   *
+   *　@param  int user_id ユーザーID
+   * @return $result(user_mstの登録情報)
+   */
   public function show_tool($user_id){
 
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
@@ -320,11 +337,9 @@ class Tool_Tbl_Access{
   }
 }
 
-
-
-
 /**
- * マッチングテーブルクラス
+ * カメラ道具テーブルクラス
+ *　会員同士で成立した予約情報を格納するマッチングテーブルへのCRUDを定義
  */
 class Match_Tbl_Access{
   //設定
@@ -347,11 +362,11 @@ class Match_Tbl_Access{
   }
 
  /**
-   * 指定したユーザを新規登録します。
+   * ユーザーに紐づくマッチング情報（予定一覧）を表示する
    *
    * @param int user_id ユーザID
    * 
-   * @return $result
+   * @return $result　予約情報一覧
    */
   public function match_show($user_id){
 
@@ -377,7 +392,7 @@ class Match_Tbl_Access{
 
 
  /**
-   * 指定したユーザを新規登録します。
+   * プロフィール画面でユーザーの確定予約情報をスケジュール表示する
    *
    * @param int user_id ユーザID
    * 
@@ -404,10 +419,87 @@ class Match_Tbl_Access{
     //$dbh = null;
 
   }
+
+   /**
+   * マッチングテーブルに確定した（承認された）予約を登録する。
+   *
+   * @param int yoyaku_id 予約ID
+   * 
+   * @return $result
+   */
+  public function match_insert($yoyaku_id){
+
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    $prepare = $dbh->prepare('SELECT * FROM yoyaku_table WHERE yoyaku_id = :yoyaku_id');
+
+    $prepare->bindValue(':yoyaku_id', $yoyaku_id, PDO::PARAM_INT); 
+
+    $prepare->execute();
+
+    $result = $prepare->fetchAll();
+
+    foreach($result as $row){
+      //予定依頼者
+      $user_id = $row['user_id'];
+      //予定依頼者区分値
+      $user_kbn = $row['user_kbn'];
+      //予定承諾者
+      $mt_user_id = $row['mt_user_id'];
+      //予定承諾者区分
+      $mt_user_kbn = $row['mt_user_kbn'];
+      //予定のタイトル
+      $title = $row['title'];
+      //予定の内容
+      $content = $row['content'];
+      //予定の場所
+      $place = $row['place'];
+      //年
+      $year = $row['year'];
+      //月
+      $month = $row['month'];
+      //日
+      $date = $row['date'];
+      //開始時間
+      $start_time = $row['start_time'];
+      //終了時間
+      $end_time = $row['end_time'];
+      //所要時間
+      $hour = $row['hour'];
+      //チェックフラグ
+      $check_flg = $row['check_flg'];      
+      //承認フラグ
+      $syonin_flg = $row['syonin_flg'];
+      //登録日時
+      $register_time = $row['register_date'];
+
+    }
+
+    $prepare = $dbh->prepare("INSERT INTO `match_table`(`yoyaku_id`, `user_id`, `user_kbn`, `mt_user_id`, `mt_user_kbn`, `title`, `year`, `month`, `date`, `start_time`, `end_time`, `hour`, `price`, `register_date`) VALUES (:yoyaku_id,:user_id,:user_kbn,:mt_user_id,:mt_user_kbn,:title,:year,:month,:date,:start_time,:end_time,:hour,:price,cast(now() as datetime))");
+
+    $prepare->bindValue(':yoyaku_id',$yoyaku_id,PDO::PARAM_INT);
+    $prepare->bindValue(':user_id',$user_id,PDO::PARAM_INT);
+    $prepare->bindValue(':user_kbn',$user_kbn,PDO::PARAM_INT);
+    $prepare->bindValue(':mt_user_id',$mt_user_id,PDO::PARAM_INT);
+    $prepare->bindValue(':mt_user_kbn',$mt_user_kbn,PDO::PARAM_INT);
+    $prepare->bindValue(':title',$title,PDO::PARAM_STR);
+    $prepare->bindValue(':year',$year,PDO::PARAM_STR);
+    $prepare->bindValue(':month',$month,PDO::PARAM_STR);
+    $prepare->bindValue(':date',$date,PDO::PARAM_STR);
+    $prepare->bindValue(':start_time',$start_time,PDO::PARAM_STR);
+    $prepare->bindValue(':end_time',$end_time,PDO::PARAM_STR);
+    $prepare->bindValue(':hour',$hour,PDO::PARAM_INT);
+    $prepare->bindValue(':price',2000,PDO::PARAM_INT);
+
+    //insertを実行
+    return $prepare -> execute();
+    exit;
+  }
 }
 
 /**
- * マッチングテーブルクラス
+ * フォトテーブルクラス
+ *　写真情報を格納するフォトテーブルへのCRUDを定義
  */
 class Photo_Tbl_Access{
   //設定
@@ -430,7 +522,7 @@ class Photo_Tbl_Access{
   }
 
  /**
-   * 指定したユーザを新規登録します。
+   * ユーザーに紐づく写真を一覧表示する。
    *
    * @param int user_id ユーザID
    * 
@@ -460,7 +552,7 @@ class Photo_Tbl_Access{
 
 
  /**
-   * 指定したユーザを新規登録します。
+   * プロフィール用の写真の表示(photo_listと処理内容同じのため不要？)
    *
    * @param int user_id ユーザID
    * 
@@ -489,10 +581,11 @@ class Photo_Tbl_Access{
   }
 
  /**
-   * 指定したユーザを新規登録します。
+   * 写真のアップロード処理（DBに写真を登録）
    *
    * @param int user_id ユーザID
-   * 
+   * @param file file ファイル
+   * @param array info 写真の基本情報    
    * @return $result
    */
   public function upload_photo($user_id,$file,$info){
@@ -517,6 +610,12 @@ class Photo_Tbl_Access{
     
   }
 
+ /**
+   * 写真表示処理
+   *
+   * @param int user_id ユーザID  
+   * @return $result
+   */
   public function show_photo($user_id){
 
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
@@ -527,6 +626,12 @@ class Photo_Tbl_Access{
 
   }
 
+ /**
+   * 写真表示処理
+   *
+   * @param int user_id ユーザID  
+   * @return $result
+   */
   public function show_photos($user_id){
 
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
@@ -547,7 +652,8 @@ class Photo_Tbl_Access{
 
 
 /**
- * マッチングテーブルクラス
+ * メッセージテーブルクラス
+ *　メッセージ情報を格納するメッセージテーブルへのCRUDを定義
  */
 class Msg_Tbl_Access{
   //設定
@@ -570,10 +676,11 @@ class Msg_Tbl_Access{
   }
 
  /**
-   * 指定したユーザを新規登録します。
+   * メッセージ送信処理
    *
    * @param int user_id ユーザID
-   * 
+   * @param int mt_user_id 相手ユーザID 
+   * @param array mst_array メッセージ情報 
    * @return $result
    */
   public function msg_send($user_id,$mt_user_id,$msg_array){
@@ -618,7 +725,7 @@ class Msg_Tbl_Access{
   }
 
  /**
-   * 指定したユーザを新規登録します。
+   * メッセージ受信処理
    *
    * @param int user_id ユーザID
    * 

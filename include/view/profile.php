@@ -20,7 +20,7 @@
 <script src="../include/view/js/bootstrap-datepicker.js"></script>
 <script src="../include/view/js/bootstrap-datepicker.ja.js"></script>
 <script src="../include/view/js/bootstrap-timepicker.js"></script>
-<script src="../include/view/js/bootstrap-timepicker.ja.js"></script>
+
 <script type="text/javascript">
 $(function() {
     $('.set_time').timepicker({});
@@ -312,29 +312,29 @@ $(document).ready(function () {
                 <!-- /.row -->
             <div class="well">
                 <h4>■依頼条件</h4>
-                <div class="request">
-                    <p class="subtitle">・希望の日程は？</p>
-                    <hr>
-                    <p class="set_date_label">開始日程：<input class="set_date" name="start_time" type="text" value=""></p>
-                    <p class="set_date_label">終了日程：<input class="set_date" name="end_time" type="text" value=""></p>
-                    <p class="subtitle">・希望の時間帯は？</p>
-                    <hr>
-                    <p class="set_time_label">開始時間：<input class="set_time" name="start_time" type="text" value=""></p>
-                    <p class="set_time_label">終了時間：<input class="set_time" name="end_time" type="text" value=""></p>
-                    <p>ご希望の時間を選択してください</p>
-                    <p class="subtitle">・希望料金</p>
-                    <hr>
-                    <p>時給 1,200円 ×0.0時間 =0円</p>
-                    </br>
-                    ※基本料金のほかに、キッズライン手数料、往復交通費、オプション費が設定されている場合はオプション費がかかります。</p>
-                    <p class="subtitle">・オプション料金</p>
-                    <hr>
-                    <p>特になし</p>
-                    <div class="apply_button">
-                        <form action="./yoyaku.php" method="post">
-                            <input class="btn btn-primary" type="submit" name="apply" value="○○に申し込みを行う"/>
-                        </form>
-                    </div>
+                <form action="./yoyaku.php" method="post">
+                    <div class="request">
+                        <p class="subtitle">・希望の日程は？</p>
+                        <hr>
+                        <p class="set_date_label">開始日程：<input class="set_date" name="start_date" type="text" value=""></p>
+                        <p class="set_date_label">終了日程：<input class="set_date" name="end_date" type="text" value=""></p>
+                        <p class="subtitle">・希望の時間帯は？</p>
+                        <hr>
+                        <p class="set_time_label">開始時間：<input class="set_time" name="start_time" type="text" value=""></p>
+                        <p class="set_time_label">終了時間：<input class="set_time" name="end_time" type="text" value=""></p>
+                        <p>ご希望の時間を選択してください</p>
+                        <p class="subtitle">・希望料金</p>
+                        <hr>
+                        <p>時給 1,200円 ×0.0時間 =0円</p>
+                        </br>
+                        ※基本料金のほかに、キッズライン手数料、往復交通費、オプション費が設定されている場合はオプション費がかかります。</p>
+                        <p class="subtitle">・オプション料金</p>
+                        <hr>
+                        <p>特になし</p>
+                        <div class="apply_button">
+                        <input class="btn btn-primary" type="submit" name="apply" value="<?php echo $mt_user_name ?>さんに申し込みを行う"/>
+                     </div>
+                 </form>
                 </div>
             </div>
             <!-- Side Widget Well -->

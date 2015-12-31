@@ -17,12 +17,11 @@ $fb = new Facebook\Facebook([
   'default_access_token' => isset($_SESSION['facebook_access_token']) ? $_SESSION['facebook_access_token'] : '607604302712166|35717e7bd645c484da39ff12a6c9ea8b'
 ]);
 
-
-
 $access_token = $_SESSION['facebook_access_token'];
 
 // ユーザーID
 $user_id = $_SESSION["user_id"];
+//var_dump($user_id);
 // ユーザーネーム
 $user_name = $_SESSION["user_name"];
 // ユーザー区分
@@ -31,14 +30,19 @@ $user_kbn = $_SESSION["user_kbn"];
 //var_dump($_POST['change_status']);
 
 if($_POST['change_status'] === '1'){
-  
-  $status = $_POST['change_status'];
 
+  // 
   $yoyaku = new Yoyaku();
-
+  // 選択した予約IDを取得
   $yoyaku_id = $_POST['yoyaku_id'];
-
+  //　選択した予約IDのステータスを取得 
+  $status = $_POST['change_status'];
+  // 予約テーブルの承認フラグのステータスを更新する
   $yoyaku -> yoyaku_update($status,$yoyaku_id);
+  // マッチテーブルの確定した予約の情報を登録する
+  $yoyaku -> match_insert($yoyaku_id);
+
+
 
 }
 
@@ -82,18 +86,23 @@ if($user_kbn === "1"){
   try{
     // ユーザーマスタとToolテーブルから画面に表示するログインユーザーの情報を取得
     $result = $user_syubetu -> show_profile($user_id,$user_kbn);
-
+    
     $result_photo = $user_syubetu -> show_photos($user_id);
 
     // 画面に表示するカメラマンのプロフィール情報(プロフィール、カメラ)を設定
-    foreach($result as $row) {      
+    foreach($result as $row) { 
+
       //カメラマンのプロフィール情報
-      $user_name = $row['user_name'];
+      $user_name = $row['name'];
       //カメラの情報
       $camera_syurui = $row['camera_syurui'];
+
       $camera_syurui_suryo = $row['camera_syurui_suryo'];
+
       $lens_syurui = $row['lens_syurui'];
+
     }
+
 
   }catch(Exception $e){
     print "エラー!: " . $e->getMessage() . "<br/>";
@@ -136,12 +145,15 @@ try{
         // 承認フラグ(申請許可=1 申請前/拒否=0)
         $flg = $row['syonin_flg'];
     }
+
+
   }catch(Exception $e){
     print "エラー!: " . $e->getMessage() . "<br/>";
     die();
   }
 
   // 次画面に自分と予約相手のログインIDを渡す
+
   // ログイン状態を維持する
   $_SESSION["user_id"] = $user_id;
   // 予約相手のプロフィールを表示する

@@ -25,40 +25,6 @@ $permissions = ['email', 'user_posts'];
 $callback = 'http://localhost/photo_match2/htdocs/mypage.php';
 $loginUrl = $helper->getLoginUrl($callback, $permissions);
 
-var_dump($loginUrl);
-
-// 【code】を参照
-$code = $_REQUEST['code'];
-var_dump($code);
-// 【client_id】を参照
-$client_id = '...';
-// 【client_secret】を参照
-$client_secret = '...';
-// 【redirect_uri】を参照
-$redirect_uri = '...';
-
-////////// ↑ 解説を参照 //////////
-
-
-// アクセストークン取得用のURLを生成
-$token_url = 'https://graph.facebook.com/oauth/access_token' 
-           . '?client_id=' . $client_id
-           . '&redirect_uri=' . urlencode($redirect_uri) 
-           . '&client_secret=' . $client_secret
-           . '&code=' . $code;
-
-// アクセストークン取得
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $token_url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-$token = curl_exec($ch);
-
-// アクセストークンを表示
-echo $token;
-
-
-
-
 //var_dump($helper -> getError());
 try {
 

@@ -39,37 +39,37 @@
             <div class="form-group">
               <label for="input-year" class="col-sm-2 control-label">年</label>
               <div class="col-sm-10">
-                <input type="text" name="year" class="form-control" id="input-year" placeholder="年" required="required">
+                <input type="text" name="year" class="form-control" id="input-year" placeholder="年" value="<?php echo $year ?>" required="required">
               </div>
             </div>
             <div class="form-group">
               <label for="input-month" class="col-sm-2 control-label">月</label>
               <div class="col-sm-10">
-                <input type="text" name="month" class="form-control" id="input-month" placeholder="月" required="required">
+                <input type="text" name="month" class="form-control" id="input-month" placeholder="月" value="<?php echo $month ?>" required="required">
               </div>
             </div>
             <div class="form-group">
               <label for="input-date" class="col-sm-2 control-label">日</label>
               <div class="col-sm-10">
-                <input type="text" name="date" class="form-control" id="input-date" placeholder="日" required="required">
+                <input type="text" name="date" class="form-control" id="input-date" placeholder="日" value="<?php echo $date ?>" required="required">
               </div>
             </div>
             <div class="form-group">
               <label for="input-start_time" class="col-sm-2 control-label">開始時間</label>
               <div class="col-sm-10">
-                <input type="text" name="start_time" class="form-control" id="input-start_time" placeholder="開始時間" required="required">
+                <input type="text" name="start_time" class="form-control" id="input-start_time" placeholder="開始時間" value="<?php echo $start_time ?>" required="required">
               </div>
             </div>
             <div class="form-group">
               <label for="input-end_time" class="col-sm-2 control-label">終了時間</label>
-              <div class="col-sm-10">
-                <input type="text" name="end_time" class="form-control" id="input-end_time" placeholder="終了時間" required="required">
+              <div class="col-sm-10"> 
+                <input type="text" name="end_time" class="form-control" id="input-end_time" placeholder="終了時間" value="<?php echo $end_time ?>" required="required">
               </div>
             </div>
             <div class="form-group">
               <label for="input-hour" class="col-sm-2 control-label">所要時間</label>
               <div class="col-sm-10">
-                <input type="text" name="hour" class="form-control" id="input-hour" placeholder="所要時間" required="required">
+                <input type="text" name="hour" class="form-control" id="input-hour" placeholder="所要時間" value="<?php echo $hour ?>" required="required">
               </div>
             </div>
             

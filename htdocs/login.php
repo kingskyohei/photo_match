@@ -14,6 +14,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 //session_destroy();
 
 session_start();
+
+//fbログインで得たセッションを一度消す
 $_SESSION['facebook_access_token'] =null;
 
 $fb = new Facebook\Facebook([
