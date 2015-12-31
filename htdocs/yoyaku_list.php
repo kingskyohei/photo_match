@@ -66,7 +66,7 @@ try {
 $helper = $fb->getRedirectLoginHelper();
 $logoutUrl = $helper->getLogoutUrl($access_token, 'http://localhost/photo_match2/htdocs/login.php');
 
-  
+
 /*
 // ログアウト時にログアウト画面に遷移する。
 if (!isset($_SESSION["user_id"])) {
@@ -134,10 +134,8 @@ try{
     $yoyaku_class = new Yoyaku();
     // マッチテーブルから予約情報を取得
     $yoyaku = $yoyaku_class -> match_show($user_id);
-    // 
+        // 
     $new_yoyaku = count($yoyaku);
-    //echo $new_yoyaku;
-    //exit;
     // 画面に表示する予約情報 
       foreach($yoyaku as $row) {
         // 予約相手のID
@@ -166,14 +164,8 @@ try{
   $_SESSION["mt_user_kbn"] = $mt_user_kbn;
 
 
-  // ユーザー区分が"1"(カメラマン)
-  if($user_kbn === "1"){
-    // 画面表示ファイル(view)の読み込み
-    include_once '../include/view/mypage_camera.php';
-  }else{
-    // 画面表示ファイル(view)の読み込み
-    include_once '../include/view/mypage_model.php';
-  }
+// 画面表示ファイル(view)の読み込み
+include_once '../include/view/yoyaku_list.php';
 
 
 

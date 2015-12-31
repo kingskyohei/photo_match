@@ -27,6 +27,18 @@ img { vertical-align: middle; }
     line-height: 1;
 }
 
+.kensu{
+  color:red;
+  display:inline;
+}
+
+.notice{
+  width:170px;
+}
+
+.circle{
+  color:red;
+}
 
 /*!
  * Page main

@@ -40,6 +40,7 @@ class User{
   public function register($user_name,$password,$register_info_array){
     // user_mstのインスタンス生成
     $user_mst_access = new User_Mst_Access();
+
     $result = $user_mst_access -> register($user_name, $password,$register_info_array);
 
     return $result;

@@ -46,18 +46,36 @@ class User_Mst_Access{
     $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
     //ユーザーネーム
     $ins_user_name = $user_name;
+    //fbのID
+    $fb_id = $register_info_array['fb_id'];
     //パスワード （ハッシュ化）
     $ins_password = $this->hash($password);
     //名前
     $ins_name = $register_info_array['name'];
+    //名前
+    $user_kbn = $register_info_array['user_kbn'];
     //ふりがな
     $ins_furigana = $register_info_array['furigana'];
+    //性別
+    $gender = $register_info_array['gender'];
     //メール
     $ins_mail = $register_info_array['mail'];
+
+    var_dump($ins_user_name);
+    var_dump($fb_id); 
+    var_dump($ins_password);
+    var_dump($ins_name);
+    var_dump($user_kbn);
+    var_dump($ins_furigana);
+    var_dump($gender);
+    var_dump($ins_mail);
     
-    $prepare = $dbh->prepare("INSERT INTO user_mst(name,furigana,mail,user_name,password) VALUES (:name, :furigana, :mail, :user_name,:password)");
+    $prepare = $dbh->prepare("INSERT INTO user_mst(name,fb_id,user_kbn,furigana,gender,mail,user_name,password) VALUES (:name, :fb_id, :user_kbn, :furigana, :gender, :mail, :user_name, :password)");
     $prepare->bindValue(':name',$ins_name,PDO::PARAM_STR);
+    $prepare->bindValue(':fb_id',$fb_id,PDO::PARAM_STR);
+    $prepare->bindValue(':user_kbn',$user_kbn,PDO::PARAM_STR);
     $prepare->bindValue(':furigana',$ins_furigana,PDO::PARAM_STR);
+    $prepare->bindValue(':gender',$gender,PDO::PARAM_STR);
     $prepare->bindValue(':mail',$ins_mail,PDO::PARAM_STR);
     $prepare->bindValue(':user_name',$ins_user_name,PDO::PARAM_STR);
     $prepare->bindValue(':password',$ins_password,PDO::PARAM_STR);
@@ -151,6 +169,27 @@ class User_Mst_Access{
     $_SESSION = array(); 
     session_destroy();
   }
+
+  /**
+   * fbのIDが登録されているかを確認
+   */
+  public function fb_login_check($fb_id){
+
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    $prepare = $dbh->prepare('SELECT user_name,user_kbn, fb_id FROM user_mst WHERE fb_id = :fb_id');
+
+    $prepare->bindValue(':fb_id', $fb_id, PDO::PARAM_INT); 
+
+    $prepare->execute();
+
+    $result = $prepare->fetchAll();
+    //var_dump($result);
+    //exit;
+    return $result;
+
+  }
+
 }
 
 /**

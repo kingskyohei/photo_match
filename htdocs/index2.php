@@ -27,5 +27,5 @@ try {
 $helper = $fb->getRedirectLoginHelper();
 //var_dump($helper);
 $permissions = ['email', 'user_likes'];
-$loginUrl = $helper->getLoginUrl('http://localhost/photo_match2/htdocs/login2.php', $permissions);
+$loginUrl = $helper->getLoginUrl('http://localhost/photo_match2/htdocs/mypage.php', $permissions);
 echo '<a href="' . $loginUrl . '">Log in with Facebook!</a>';

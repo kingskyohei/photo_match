@@ -76,7 +76,7 @@
                         <a href="<?php echo $logoutUrl ?>"><?php echo 'Logout of Facebook!' ?></a>;
                     </li>
                     <li>
-                        <a href="#">ようこそ<?php echo $user_name ?>さん</a>
+                        <a href=""><p>ようこそ<?php echo $user_name ?>さん</p></a>
                     </li>
                     <li>
                         <input class="notice_kensu" type="hidden" name="notice_kensu" value="<?php echo $new_yoyaku ?>">
@@ -102,45 +102,46 @@
                     <a href="../htdocs/message.php" class="list-group-item">メッセージ</a>
                 </div>
             </div>
+
             <div class="col-md-9">
 
-                <?php foreach($result_photo as $row){ ?>
+                <?php foreach($yoyaku as $row){ ?>
 
                     <div class="thumbnail">
                         <div class="caption-full">
-                            <h4><a href="#">写真一覧</a>
+                            <h4><a href="#">通知内容</a>
                             </h4>
-                            <p>写真番号：<?php echo $row['photo_id']; ?></p>
-                            <p>写真URL：<?php echo $row['photo_url']; ?></p>
+                            <p>予約番号：<?php echo $row['yoyaku_id']; ?></p>
+                            <form method="post">
+                              <?php if ($row['syonin_flg'] === '1') { ?>
+                                <td><input type="submit" value="承認 → 非承認"></td>
+                                <input type="hidden" name="change_status" value="0">
+                              <?php } else { ?>
+                                <td><input type="submit" value="非承認 → 承認"></td>
+                                <input type="hidden" name="change_status" value="1">
+                                <input type="hidden" name="yoyaku_id" value="<?php echo $row['yoyaku_id']; ?>">
+                              <?php } ?>
+                                <input type="hidden" name="sql_kind" value="change">
+                            </form>
+                            <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $row['mt_user_id']; ?></a></p>
                        </div>
                     </div>
                 <?php 
                 }
                 ?>
+                
 
 <!--
                 <div class="thumbnail">
                     <div class="caption-full">
                         <h4><a href="#">通知内容</a>
                         </h4>
-                        <p>予約番号：<?php //echo $yoyaku_id ?></p>
-                        <p>可否：<?php //echo $flg ?></p>
-                        <p>相手のページ：<a href="./profile.php?user_id=<?php //echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
+                        <p>予約番号：<?php echo $yoyaku_id ?></p>
+                        <p>可否：<?php echo $flg ?></p>
+                        <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
                    </div>
                 </div>
 -->
-
-
-                <div class="thumbnail">
-                    <div class="caption-full">
-                        <h4><a href="#">カメラマンのツール</a>
-                        </h4>
-                        <p>カメラメーカー：<?php echo $camera_syurui ?></p>
-                        <p>カメラの個数：<?php echo $camera_syurui_suryo ?></p>
-                        <p>レンズメーカー：<?php echo $lens_syurui ?></a></p>
-                   </div>
-                </div>
-
             </div>
 
         </div>

@@ -15,7 +15,7 @@
             <div class="form-group">
               <label for="input-name" class="col-sm-2 control-label">お名前</label>
               <div class="col-sm-10">
-                <input type="text" name="name" class="form-control" id="input-name" placeholder="お名前" required="required" value="<?php echo $user_name ?>">
+                <input type="text" name="name" class="form-control" id="input-name" placeholder="お名前" required="required" value="">
               </div>
             </div>
             <div class="form-group">        
@@ -24,10 +24,22 @@
                 <input type="text" name="furigana" class="form-control" id="furigana" placeholder="フリガナ" required="required">
               </div>
             </div>
+            <div class="form-group">   
+            <label for="input-name" class="col-sm-2 control-label">性別</label>
+              <div class="col-sm-10">
+                <input type="text" name="gender" class="form-control" id="gender" placeholder="性別" required="required" value="<?php echo $gender ?>">
+              </div>
+            </div>
             <div class="form-group">
               <label for="input-mail" class="col-sm-2 control-label">メールアドレス</label>
               <div class="col-sm-10">
-                <input type="email" name="mail" class="form-control"  id="input-mail" placeholder="メールアドレス" required="required">
+                <input type="email" name="mail" class="form-control"  id="input-mail" placeholder="メールアドレス" required="required" value="<?php echo $email ?>">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="input-mail" class="col-sm-2 control-label">ユーザー区分</label>
+              <div class="col-sm-10">
+                <input type="text" name="user_kbn" class="form-control" id="user_kbn" placeholder="ユーザー区分" required="required" value="">
               </div>
             </div>
             <div class="form-group">

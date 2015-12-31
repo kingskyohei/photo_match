@@ -27,7 +27,6 @@ $fb = new Facebook\Facebook([
 
 try {
   $response = $fb->get('/me?fields=id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name');
-
   //var_dump($response);
   $user = $response->getGraphUser();
   echo 'Name: ' . $user['name'] .$user['email']. 'ID' .$user['id'] ;
@@ -38,6 +37,7 @@ try {
   //echo 'Facebook SDK returned an error: ' . $e->getMessage();
 }
  
+
 $helper = $fb->getRedirectLoginHelper();
 $permissions = ['email', 'user_likes'];
 $loginUrl = $helper->getLoginUrl('http://localhost/photo_match2/htdocs/login2.php', $permissions);

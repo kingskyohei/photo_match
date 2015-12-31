@@ -54,10 +54,16 @@
                         <a href="#">Contact</a>
                     </li>
                     <li>
+                        <a href="<?php echo $logoutUrl ?>"><?php echo 'Logout of Facebook!' ?></a>;
+                    </li>
+                    <li>
                         <a href="logout.php">ログアウト</a>
                     </li>
                     <li>
                         <a href=""><p>ようこそ<?php echo $user_name ?>さん</p></a>
+                    </li>
+                    <li>
+                        <a href=""><img src="" /></a>
                     </li>
                 </ul>
             </div>

@@ -24,9 +24,18 @@
               <div class="col-sm-10"><p><?php echo $furigana ?></p>
               </div>
             </div>
+            <div class="form-group">        
+              <label for="input-name" class="col-sm-2 control-label">性別</label>
+              <div class="col-sm-10"><p><?php echo $gender ?></p>
+              </div>
+            </div>
             <div class="form-group">
               <label for="input-mail" class="col-sm-2 control-label">メールアドレス</label>
               <div class="col-sm-10"><p><?php echo $mail ?></p>
+            </div>
+            <div class="form-group">
+              <label for="input-name" class="col-sm-2 control-label">ユーザー区分</label>
+              <div class="col-sm-10"><p><?php echo $user_kbn ?></p>
             </div>
             <div class="form-group">
               <label class="col-sm-2 control-label">ユーザーネーム</label>
