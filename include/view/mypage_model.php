@@ -16,14 +16,30 @@
 
     <!-- Custom CSS -->
     <link href="../include/view/css/shop-item.css" rel="stylesheet">
-
+    <link href="../include/view/css/main.css" rel="stylesheet">
+    <script src="../include/view/js/vendor/jquery-1.10.2.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script >
+    $(document).ready(function(){
+       $('.kensu').each(function(){
+            //表示するカウント数はどこかに仕込んでおくとして
+            var count = $('.notice_kensu').attr('value');
+            console.log(count);
+            //var count = $(this).attr('count');
+            //カウント表示の要素を追加する
+            if(count != 0){
+                if(count > 99) count = '99+';
+                $(this).wrap($('<span>').css({'position':'relative'}))
+                    .parent().append($('<span>').addClass("circle").html(count));
+            }
+        });
+    });
+   </script>
 </head>
 
 <body>
@@ -59,6 +75,10 @@
                     <li>
                         <a href=""><p>ようこそ<?php echo $user_name ?>さん</p></a>
                     </li>
+                    <li>
+                        <input class="notice_kensu" type="hidden" name="notice_kensu" value="<?php echo $new_yoyaku ?>">
+                        <a class="notice" href="#">新着通知件数<p class="kensu"></p>件</a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -74,9 +94,9 @@
             <div class="col-md-3">
                 <p class="lead">予約通知<?php echo $camera_syurui ?></p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                    <a href="#" class="list-group-item active">プロフィール</a>
+                    <a href="../htdocs/yoyaku_list.php" class="list-group-item">予約確認</a>
+                    <a href="#" class="list-group-item">写真一覧</a>
                     <a href="../htdocs/message.php" class="list-group-item">メッセージ</a>
                 </div>
             </div>
