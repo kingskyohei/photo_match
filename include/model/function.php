@@ -1,10 +1,6 @@
 <?php
 
-/**
- * ユーザーマスタクラス
- * モデル、カメラマンのプロフィール情報を格納するユーザーマスタへのCRUDを定義
- */
-class User_Mst_Access{
+class Mst_Access{
   //設定
   const SALT = "mwefCMEP28DjwdW3lwdS239vVS";
   const HOST_NAME = DB_HOST;
@@ -24,6 +20,21 @@ class User_Mst_Access{
       DB_USER, 
       DB_PASSWD
     );
+  }
+}
+
+/**
+ * ユーザーマスタクラス
+ * モデル、カメラマンのプロフィール情報を格納するユーザーマスタへのCRUDを定義
+ */
+class User_Mst_Access extends Mst_Access{
+
+  /**
+   * コンストラクタ
+   *　DB接続情報
+   */
+  function __construct(){
+
     session_start();
   }
 
@@ -196,24 +207,14 @@ class User_Mst_Access{
  * 予約テーブルクラス
  *　ユーザー同士の予約情報を格納する予約テーブルへのCRUDを定義
  */
-class Yoyaku_Tbl_Access{
+class Yoyaku_Tbl_Access extends Mst_Access{
   //設定
-  const HOST_NAME = DB_HOST;
-  const USER_NAME = DB_USER;
-  const PASSWORD = DB_PASSWD;
-  const DATABASE_NAME = DB_NAME;
-
-  private $dbh = null;
 
   /**
    * コンストラクタ
    */
   function __construct(){
-    $this->dbh = new PDO(
-      DB_HOST, 
-      DB_USER, 
-      DB_PASSWD
-    );
+
   }
 
   /**
@@ -328,25 +329,15 @@ class Yoyaku_Tbl_Access{
  * カメラ道具テーブルクラス
  *　カメラマンの所有するカメラやレンズの情報を格納するカメラ道具テーブルへのCRUDを定義
  */
-class Tool_Tbl_Access{
+class Tool_Tbl_Access extends Mst_Access{
   //設定
 
-  const HOST_NAME = DB_HOST;
-  const USER_NAME = DB_USER;
-  const PASSWORD = DB_PASSWD;
-  const DATABASE_NAME = DB_NAME;
-
-  private $dbh = null;
 
   /**
    * コンストラクタ
    */
   function __construct(){
-    $this->dbh = new PDO(
-      DB_HOST, 
-      DB_USER, 
-      DB_PASSWD
-    );
+
   }
 
  /**
@@ -380,24 +371,15 @@ class Tool_Tbl_Access{
  * カメラ道具テーブルクラス
  *　会員同士で成立した予約情報を格納するマッチングテーブルへのCRUDを定義
  */
-class Match_Tbl_Access{
+class Match_Tbl_Access extends Mst_Access{
   //設定
-  const HOST_NAME = DB_HOST;
-  const USER_NAME = DB_USER;
-  const PASSWORD = DB_PASSWD;
-  const DATABASE_NAME = DB_NAME;
 
-  private $dbh = null;
 
   /**
    * コンストラクタ
    */
   function __construct(){
-    $this->dbh = new PDO(
-      DB_HOST, 
-      DB_USER, 
-      DB_PASSWD
-    );
+
   }
 
  /**
@@ -540,24 +522,14 @@ class Match_Tbl_Access{
  * フォトテーブルクラス
  *　写真情報を格納するフォトテーブルへのCRUDを定義
  */
-class Photo_Tbl_Access{
+class Photo_Tbl_Access extends Mst_Access{
   //設定
-  const HOST_NAME = DB_HOST;
-  const USER_NAME = DB_USER;
-  const PASSWORD = DB_PASSWD;
-  const DATABASE_NAME = DB_NAME;
-
-  private $dbh = null;
 
   /**
    * コンストラクタ
    */
   function __construct(){
-    $this->dbh = new PDO(
-      DB_HOST, 
-      DB_USER, 
-      DB_PASSWD
-    );
+
   }
 
  /**
@@ -694,24 +666,14 @@ class Photo_Tbl_Access{
  * メッセージテーブルクラス
  *　メッセージ情報を格納するメッセージテーブルへのCRUDを定義
  */
-class Msg_Tbl_Access{
+class Msg_Tbl_Access extends Mst_Access{
   //設定
-  const HOST_NAME = DB_HOST;
-  const USER_NAME = DB_USER;
-  const PASSWORD = DB_PASSWD;
-  const DATABASE_NAME = DB_NAME;
-
-  private $dbh = null;
 
   /**
    * コンストラクタ
    */
   function __construct(){
-    $this->dbh = new PDO(
-      DB_HOST, 
-      DB_USER, 
-      DB_PASSWD
-    );
+
   }
 
  /**
