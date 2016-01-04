@@ -42,11 +42,7 @@ if($_POST['change_status'] === '1'){
   // マッチテーブルの確定した予約の情報を登録する
   $yoyaku -> match_insert($yoyaku_id);
 
-
-
 }
-
-
 
 try {
   $response = $fb->get('/me?fields=id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name');
