@@ -1,4 +1,5 @@
 $(function () {
+
     /*
      * ヘッダー
      */
@@ -76,6 +77,15 @@ $(function () {
         // アイテムを生成しドキュメントに挿入する
         function addItems (filter) {
 
+          this.$container = $("#modal");
+          this.$item = $(".gallery-item");
+          this.$contents = $("#modal-contents");
+          this.$close = $("#modal-close");
+          this.$next = $("#modal-next");
+          this.$prev = $("#modal-prev");
+          this.$overlay = $("#modal-overlay");
+          this.$window = $(window);
+          /*  */
             var elements = [],
                 // 追加するデータの配列
                 slicedData = filteredData.slice(addedd, addedd + addItemCount);
@@ -84,7 +94,7 @@ $(function () {
             $.each(slicedData, function (i, item) {
                 var itemHTML =
                         '<li class="gallery-item is-loading">' +
-                            '<a href="' + item.images.large + '">' +
+                            '<a id="item_link'+ item.dataindex + '" data-index="'+ item.dataindex + '" href="' + item.images.large + '">' +
                                 '<img src="' + item.images.thumb + '" alt="">' +
                                 '<span class="caption">' +
                                     '<span class="inner">' +
@@ -104,7 +114,6 @@ $(function () {
             });
 
             // DOM 要素の配列をコンテナーに挿入し、Masonry レイアウトを実行
-            
             $container
                 .append(elements)
                 .imagesLoaded(function () {
@@ -118,6 +127,89 @@ $(function () {
                 });
 
             // リンクに Colorbox を設定
+            $(".gallery-item a").on('click',function(e){
+                //e.preventDefault();
+                var src = this;
+                alert(src);
+                //課題：今クリックされたclass="gallery-item"を$itemに指定したい
+                //alert(e.target.attr("src"));
+                //var src = this;
+                //var src2 = this;
+                //console.log(src);
+                //alert(src);
+                //alert(src2);
+                //var src = this.find('a').attr("href");
+                //var src2 = this.find('a');
+                //alert(src);
+                //var index = $container.find('a').attr("data-index");   
+                //alert(index);  
+                /*
+                $("#modal-contents").html("<img src=\"" + src + "\" />");
+                $("#modal").fadeIn();
+                $("#modal-overlay").fadeIn();
+                var index = $container.find('a').attr("data-index");
+                //alert(index);
+                var size = $('li').length;
+                //console.log(index);
+
+                countChange = createCounter(index, size);
+                //$("#modal-overlay");
+                //this.$contents.html("<img src=\"" + src + "\" />");
+                //this.$container.fadeIn();
+                //this.$overlay.fadeIn();
+                //alert(src);
+                //self.show(e);
+                */
+                return false;
+            });
+
+            function createCounter(index, len){
+                return function(num) {
+                return index = (index + num + len) % len;
+                };
+            };
+
+            /* オブジェクトの次を（前を）選ぶ */
+            function slide(index){
+
+                $("#modal-contents").find("img").fadeOut({
+                    complete:function(){
+                        //本来はオブジェクトが渡されてくるが現在は箱が渡されている
+                        var src = $("[data-index=\"" + index + "\"]").find("img").attr("src");
+                        
+                        $(this).attr("src", src).fadeIn();
+                    }
+                });
+            }
+
+            $("#modal-close").on("click", function(e) {
+                $("#modal").fadeOut(e);
+                $("#modal-overlay").fadeOut(e);
+                return false;
+              });
+
+            $("#modal-next").on("click", function(e) {
+              //alert('aaa');
+              slide(countChange(1));
+              return false;
+            });
+
+            $("#modal-prev").on("click", function(e) {
+              //alert('aaa');
+              slide(countChange(-1));
+              return false;
+            });
+
+            $window.on("load resize", function(){
+              var w = $window.width();
+              if(w < 640){
+                $("#container").css({"width": "320","height":"213"});
+              }else{
+                $("#container").css({"width": "750","height":"500"});
+              }
+            });
+
+            /*
             $container.find('a').colorbox({
                 maxWidth: '970px',
                 maxHeight: '95%',
@@ -125,6 +217,7 @@ $(function () {
                     return $(this).find('.inner2').html();
                 }
             });
+            */
 
             // 追加済みアイテム数の更新
             addedd += slicedData.length;

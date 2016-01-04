@@ -3,25 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
 <title>MODEL SEARCH</title>
 <link rel="stylesheet" href="../include/view/css/normalize.css">
 <link rel="stylesheet" href="../include/view/css/colorbox.css">
 <link rel="stylesheet" href="../include/view/css/main.css">
-
 <script src="../include/view/js/vendor/modernizr.custom.min.js"></script>
 <script src="../include/view/js/vendor/jquery-1.10.2.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
 <script src="../include/view/js/vendor/jquery-ui-1.10.3.custom.min.js"></script>
 <script src="../include/view/js/vendor/jquery.ba-throttle-debounce.min.js"></script>
 <script src="../include/view/js/vendor/imagesloaded.pkgd.min.js"></script>
 <script src="../include/view/js/vendor/masonry.pkgd.min.js"></script>
-<script src="../include/view/js/vendor/jquery.colorbox-min.js"></script>
-<script src="../include/view/js/main.js"></script>
+<!-- <script src="../include/view/js/vendor/jquery.colorbox-min2.js"></script> -->
 
 <script>
 	$(document).ready(function(){
+
+		$(".item_link").on('click',function(e){
+			alert('aaa');
+		});
+		/*
 		$(".design").colorbox({
 			rel:'design'
 		});
+
 		$(".inline").colorbox({
 			rel:'group',
 			inline: true
@@ -48,6 +54,7 @@
 			var position = $('#anchor_demo').offset().top;
 			window.scrollTo(0,position);
 		});
+*/
 	});
 </script>
 </head>
@@ -59,7 +66,7 @@
         <form class="filter-form" id="gallery-filter">
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-all" value="all" checked>
-                <label for="filter-all">ALL</label>
+                <label for="filter-all" id="filter_all"> ALL</label>
             </span>
             <span class="form-item">
                 <input type="radio" name="filter" id="filter-people" value="people">
@@ -101,8 +108,10 @@
 		</div>
 	</ul>
 
-    <ul class="gallery clearfix" id="gallery"></ul>
-    <button class="load-more" id="load-more">Load more</button>
+	<div id="container clearfix">
+	    <ul class="gallery clearfix" id="gallery"></ul>
+	    <button class="load-more" id="load-more">Load more</button>
+    </div>
 </div>		
 
 <div style="display:none">
@@ -118,7 +127,16 @@
 		</div>
 
 </div>
+<div id="modal">
+  <div id="modal-container">
+    <div id="modal-contents"></div>
+    <div id="modal-close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+    <div id="modal-prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></div>
+    <div id="modal-next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
+  </div>
+</div>
+<div id="modal-overlay"></div>
 
-
+<script src="../include/view/js/main.js"></script>
 </body>
 </html>
