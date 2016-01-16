@@ -98,7 +98,7 @@ class User_Mst_Access extends Mst_Access{
 
   /**
    * 指定したユーザでログインします。
-   *
+   *  
    * @param string $user_name ユーザ名
    * @param string $password パスワード
    *
@@ -197,6 +197,23 @@ class User_Mst_Access extends Mst_Access{
     $result = $prepare->fetchAll();
     //var_dump($result);
     //exit;
+    return $result;
+
+  }
+
+  /**
+   * fbのIDが登録されているかを確認
+   */
+  public function user_list(){
+
+    $dbh = new PDO(DB_HOST, DB_USER, DB_PASSWD);
+
+    $prepare = $dbh->prepare('SELECT * FROM user_mst');
+
+    $prepare->execute();
+
+    $result = $prepare->fetchAll();
+
     return $result;
 
   }

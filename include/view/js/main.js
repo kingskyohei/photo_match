@@ -24,7 +24,8 @@ $(function () {
      */
     $('#gallery').each(function () {
         /* 兵庫 */ 
-        var $container = $(this),
+        var index,
+            $container = $(this),
             $loadMoreButton = $('#load-more'), // 追加ボタン
             $filter = $('#gallery-filter'),    // フィルタリングのフォーム
             addItemCount = 16,                    // 一度に表示するアイテム数
@@ -78,7 +79,7 @@ $(function () {
         function addItems (filter) {
 
           this.$container = $("#modal");
-          this.$item = $(".gallery-item");
+          this.$item = $(".gallery-item a");
           this.$contents = $("#modal-contents");
           this.$close = $("#modal-close");
           this.$next = $("#modal-next");
@@ -129,8 +130,9 @@ $(function () {
             // リンクに Colorbox を設定
             $(".gallery-item a").on('click',function(e){
                 //e.preventDefault();
-                var src = this;
-                alert(src);
+                var src = ($(this).attr("href"));
+
+                //alert(src);
                 //課題：今クリックされたclass="gallery-item"を$itemに指定したい
                 //alert(e.target.attr("src"));
                 //var src = this;
@@ -143,40 +145,40 @@ $(function () {
                 //alert(src);
                 //var index = $container.find('a').attr("data-index");   
                 //alert(index);  
-                /*
+                
                 $("#modal-contents").html("<img src=\"" + src + "\" />");
                 $("#modal").fadeIn();
                 $("#modal-overlay").fadeIn();
-                var index = $container.find('a').attr("data-index");
+                index = $(this).attr("data-index");
                 //alert(index);
-                var size = $('li').length;
                 //console.log(index);
 
-                countChange = createCounter(index, size);
-                //$("#modal-overlay");
-                //this.$contents.html("<img src=\"" + src + "\" />");
+                //this.countChange = createCounter(index, size);
+
                 //this.$container.fadeIn();
                 //this.$overlay.fadeIn();
                 //alert(src);
                 //self.show(e);
-                */
+                
                 return false;
             });
 
-            function createCounter(index, len){
-                return function(num) {
-                return index = (index + num + len) % len;
-                };
+
+            function countChange(num,index,len){
+                
+                var goukei = parseInt(index) + parseInt(num) + parseInt(len);
+
+                return goukei % parseInt(len);
             };
 
             /* オブジェクトの次を（前を）選ぶ */
             function slide(index){
-
+                //alert(index);
                 $("#modal-contents").find("img").fadeOut({
                     complete:function(){
                         //本来はオブジェクトが渡されてくるが現在は箱が渡されている
-                        var src = $("[data-index=\"" + index + "\"]").find("img").attr("src");
-                        
+                        var src = $("#item_link"+ index + "").attr("href");
+                        //alert(src);
                         $(this).attr("src", src).fadeIn();
                     }
                 });
@@ -188,16 +190,33 @@ $(function () {
                 return false;
               });
 
+            $("#modal-kozu").on("click", function(e) {
+                // クリックした写真のファイル名を取得
+                var file_name = $("#modal-contents").children().attr('src').split('/').pop();
+                
+                var file_name_s = file_name.replace(/.jpg/g,"");
+
+                selectedSrc_kozu = file_name_s + '_kozu.jpg';
+ 
+                $('#modal-contents').children().attr('src',"../include/view/img/" + selectedSrc_kozu);
+
+                return false;
+              });
+
             $("#modal-next").on("click", function(e) {
-              //alert('aaa');
-              slide(countChange(1));
-              return false;
+              var size = $('li').length;
+              //alert(index);
+              index = countChange(1,index,size);
+              //alert(index2);
+              //alert(index);
+              slide(index);
             });
 
             $("#modal-prev").on("click", function(e) {
-              //alert('aaa');
-              slide(countChange(-1));
-              return false;
+              var size = $('li').length;
+              index = countChange(-1,index,size);
+              //alert(index);
+              slide(index);
             });
 
             $window.on("load resize", function(){
@@ -316,7 +335,7 @@ $(function () {
 
           var file_name_s = file_name.replace(/.jpg/g,"");
 
-/*
+/*          
 
           // マウスオーバーした写真のファイル名を取得
           var selectedSrc_t = $(this).children().attr('src').split('/').pop();
@@ -334,9 +353,9 @@ $(function () {
           selectedSrc_o = selectedSrc + '.jpg';
           selectedSrc_m = selectedSrc + '_m.jpg';
           selectedSrc_c = selectedSrc + '_c.jpg';
-          console.log(selectedSrc_o);
-          console.log(selectedSrc_m);
-          console.log(selectedSrc_c);
+          //console.log(selectedSrc_o);
+          //console.log(selectedSrc_m);
+          //console.log(selectedSrc_c);
           //console.log(selectedSrc_o);
           //console.log(selectedSrc_m);
           //console.log(selectedSrc_c);

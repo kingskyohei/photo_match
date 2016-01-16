@@ -8,16 +8,7 @@ require_once '../include/model/entity.php';
 
 
 session_start();
-/*
-var_dump($_SESSION["name"]);
-var_dump($_SESSION["fb_id"]);
-var_dump($_SESSION["furigana"]);
-var_dump($_SESSION["mail"]);
-var_dump($_SESSION["gender"]);
-var_dump($_SESSION["user_kbn"]);
-var_dump($_SESSION["user_name"]);
-var_dump($_SESSION["password"]);
-*/
+
 
 $name = $_SESSION["name"];
 $furigana = $_SESSION["furigana"];

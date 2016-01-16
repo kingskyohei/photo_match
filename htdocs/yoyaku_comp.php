@@ -53,6 +53,15 @@ try{
   die();
 }
 
+/*メールの送信 ※サーバー用で実行しないと動かない*/
+if (mail("kyohei.kinugasa@rev.tokyo", "TEST MAIL", "This is a test message.", "From: kyohei.kinugasa@rev.tokyo")) {
+  echo "メールが送信されました。";
+} else {
+  echo "メールの送信に失敗しました。";
+}
+
+
+
 
 // コネクション取得
 /*

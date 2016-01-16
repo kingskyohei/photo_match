@@ -131,6 +131,7 @@
   <div id="modal-container">
     <div id="modal-contents"></div>
     <div id="modal-close"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></div>
+    <div id="modal-kozu"><span class="glyphicon glyphicon-kozu" aria-hidden="true"></span></div>
     <div id="modal-prev"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></div>
     <div id="modal-next"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></div>
   </div>

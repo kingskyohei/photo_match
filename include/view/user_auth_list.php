@@ -16,14 +16,30 @@
 
     <!-- Custom CSS -->
     <link href="../include/view/css/shop-item.css" rel="stylesheet">
-
+    <link href="../include/view/css/main.css" rel="stylesheet">
+    <script src="../include/view/js/vendor/jquery-1.10.2.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
+    <script >
+    $(document).ready(function(){
+       $('.kensu').each(function(){
+            //表示するカウント数はどこかに仕込んでおくとして
+            var count = $('.notice_kensu').attr('value');
+            console.log(count);
+            //var count = $(this).attr('count');
+            //カウント表示の要素を追加する
+            if(count != 0){
+                if(count > 99) count = '99+';
+                $(this).wrap($('<span>').css({'position':'relative'}))
+                    .parent().append($('<span>').addClass("circle").html(count));
+            }
+        });
+    });
+   </script>
 </head>
 
 <body>
@@ -54,16 +70,17 @@
                         <a href="#">Contact</a>
                     </li>
                     <li>
-                        <a href="<?php echo $logoutUrl ?>"><?php echo 'Logout of Facebook!' ?></a>;
+                        <a href="logout.php">ログアウト</a>
                     </li>
                     <li>
-                        <a href="logout.php">ログアウト</a>
+                        <a href="<?php echo $logoutUrl ?>"><?php echo 'Logout of Facebook!' ?></a>;
                     </li>
                     <li>
                         <a href=""><p>ようこそ<?php echo $user_name ?>さん</p></a>
                     </li>
                     <li>
-                        <a href="./user_auth_list.php"><p>ユーザー承認</p></a>
+                        <input class="notice_kensu" type="hidden" name="notice_kensu" value="<?php echo $new_yoyaku ?>">
+                        <a class="notice" href="#">新着通知件数<p class="kensu"></p>件</a>
                     </li>
                 </ul>
             </div>
@@ -78,42 +95,53 @@
         <div class="row">
 
             <div class="col-md-3">
-                <p class="lead">予約通知<?php echo $camera_syurui ?></p>
                 <div class="list-group">
-                    <a href="#" class="list-group-item active">Category 1</a>
-                    <a href="#" class="list-group-item">Category 2</a>
-                    <a href="#" class="list-group-item">Category 3</a>
+                    <a href="../htdocs/mypage.php" class="list-group-item active">プロフィール</a>
+                    <a href="../htdocs/yoyaku_list.php" class="list-group-item">予約確認</a>
+                    <a href="../htdocs/upload.php" class="list-group-item">写真アップロード</a>
+                    <a href="../htdocs/message.php" class="list-group-item">メッセージ</a>
                 </div>
             </div>
 
             <div class="col-md-9">
-        <!-- <?php debug($memo); ?> デバッグ-->
-                <?php foreach($yoyaku as $row){
-                    foreach($row as $row2){
-                    } ?>
+
+                <?php foreach($result as $row){ ?>
+
                     <div class="thumbnail">
                         <div class="caption-full">
                             <h4><a href="#">通知内容</a>
                             </h4>
-                            <p>予約番号：<?php echo $row2['yoyaku_id']; ?></p>
+                            <p>ユーザー番号：<?php echo $row['user_id']; ?></p>
+                            <p>ユーザー名：<?php echo $row['name']; ?></p>
                             <form method="post">
-                              <?php if ($row2['syonin_flg'] === '1') { ?>
-                                <td><input type="submit" value="公開 → 非公開"></td>
+                              <?php if ($row['syonin_flg'] === '1') { ?>
+                                <td><input type="submit" value="承認 → 非承認"></td>
                                 <input type="hidden" name="change_status" value="0">
                               <?php } else { ?>
-                                <td><input type="submit" value="非公開 → 公開"></td>
+                                <td><input type="submit" value="非承認 → 承認"></td>
                                 <input type="hidden" name="change_status" value="1">
-                                <input type="hidden" name="yoyaku_id" value="<?php echo $row2['yoyaku_id']; ?>">
+                                <input type="hidden" name="yoyaku_id" value="<?php echo $row['yoyaku_id']; ?>">
                               <?php } ?>
                                 <input type="hidden" name="sql_kind" value="change">
                             </form>
-                            <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $row2['mt_user_id']; ?></a></p>
                        </div>
                     </div>
                 <?php 
-                    }
                 }
                 ?>
+                
+
+<!--
+                <div class="thumbnail">
+                    <div class="caption-full">
+                        <h4><a href="#">通知内容</a>
+                        </h4>
+                        <p>予約番号：<?php echo $yoyaku_id ?></p>
+                        <p>可否：<?php echo $flg ?></p>
+                        <p>相手のページ：<a href="./profile.php?user_id=<?php echo $mt_user_id ?>"><?php echo $mt_user_id ?></a></p>
+                   </div>
+                </div>
+-->
             </div>
 
         </div>
@@ -129,7 +157,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; MODEL SEARCH 2015</p>
                 </div>
             </div>
         </footer>

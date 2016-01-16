@@ -10,6 +10,7 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 session_start();
 
+//fbの設定
 $fb = new Facebook\Facebook([
   'app_id' => '607604302712166',
   'app_secret' => '35717e7bd645c484da39ff12a6c9ea8b',
@@ -17,6 +18,7 @@ $fb = new Facebook\Facebook([
   'default_access_token' => isset($_SESSION['facebook_access_token']) ? $_SESSION['facebook_access_token'] : '607604302712166|35717e7bd645c484da39ff12a6c9ea8b'
 ]);
 
+//　
 $access_token = $_SESSION['facebook_access_token'];
 
 // ユーザーID
@@ -42,11 +44,7 @@ if($_POST['change_status'] === '1'){
   // マッチテーブルの確定した予約の情報を登録する
   $yoyaku -> match_insert($yoyaku_id);
 
-
-
 }
-
-
 
 try {
   $response = $fb->get('/me?fields=id,email,gender,link,locale,name,timezone,updated_time,verified,last_name,first_name,middle_name');
@@ -139,7 +137,7 @@ try{
     //echo $new_yoyaku;
     //exit;
     // 画面に表示する予約情報 
-      foreach($yoyaku as $row) {
+    foreach($yoyaku as $row) {
         // 予約相手のID
         $mt_user_id = $row['mt_user_id'];
         // 予約相手のユーザー区分
@@ -149,13 +147,10 @@ try{
         // 承認フラグ(申請許可=1 申請前/拒否=0)
         $flg = $row['syonin_flg'];
     }
-
-
   }catch(Exception $e){
     print "エラー!: " . $e->getMessage() . "<br/>";
     die();
   }
-
   // 次画面に自分と予約相手のログインIDを渡す
 
   // ログイン状態を維持する

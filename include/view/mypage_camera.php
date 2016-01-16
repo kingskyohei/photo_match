@@ -82,6 +82,9 @@
                         <input class="notice_kensu" type="hidden" name="notice_kensu" value="<?php echo $new_yoyaku ?>">
                         <a class="notice" href="#">新着通知件数<p class="kensu"></p>件</a>
                     </li>
+                    <li>
+                        <a href="./user_auth_list.php"><p>ユーザー一覧</p></a>
+                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
